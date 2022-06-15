@@ -81,6 +81,10 @@
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Registrar') }}</a>
                                 </li>
                             @endif
+
+                            <li class="nav-item">
+                                <a href="{{ url('/pelicula') }}" class="nav-link"><i class="fas fa-film text-info"></i> Pelicula</a> 
+                            </li>
                         @else
                                 <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
