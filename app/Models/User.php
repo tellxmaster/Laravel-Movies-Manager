@@ -50,6 +50,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
+    public function adminlte_image(){
+        return 'https://picsum.photos/300/300';
+    }
+
+    public function adminlte_desc(){
+        return 'Administrador';
+    }
+
+
     /**
      * The accessors to append to the model's array form.
      *

@@ -14,8 +14,8 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
-    'title_prefix' => '',
+    'title' => '',
+    'title_prefix' => 'Cineflix - ',
     'title_postfix' => '',
 
     /*
@@ -30,7 +30,7 @@ return [
     |
     */
 
-    'use_ico_only' => false,
+    'use_ico_only' => true,
     'use_full_favicon' => false,
 
     /*
@@ -45,12 +45,12 @@ return [
     |
     */
 
-    'logo' => '<b>Cine</b>flix 2',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-    'logo_img_class' => 'brand-image img-circle elevation-3',
+    'logo' => '<b>CINEFLIX</b>',
+    'logo_img' => 'vendor/adminlte/dist/img/logo-small.png',
+    'logo_img_class' => 'brand-image center',
     'logo_img_xl' => null,
-    'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'AdminLTE',
+    'logo_img_xl_class' => 'brand-image mx-auto',
+    'logo_img_alt' => 'Cineflix',
 
     /*
     |--------------------------------------------------------------------------
@@ -65,10 +65,10 @@ return [
     */
 
     'usermenu_enabled' => true,
-    'usermenu_header' => false,
-    'usermenu_header_class' => 'bg-primary',
-    'usermenu_image' => false,
-    'usermenu_desc' => false,
+    'usermenu_header' => true,
+    'usermenu_header_class' => 'bg-dark',
+    'usermenu_image' => true,
+    'usermenu_desc' => true,
     'usermenu_profile_url' => false,
 
     /*
@@ -85,7 +85,7 @@ return [
 
     'layout_topnav' => null,
     'layout_boxed' => null,
-    'layout_fixed_sidebar' => null,
+    'layout_fixed_sidebar' => true,
     'layout_fixed_navbar' => null,
     'layout_fixed_footer' => null,
     'layout_dark_mode' => null,
@@ -102,12 +102,12 @@ return [
     |
     */
 
-    'classes_auth_card' => 'card-outline card-primary',
-    'classes_auth_header' => '',
-    'classes_auth_body' => '',
-    'classes_auth_footer' => '',
-    'classes_auth_icon' => '',
-    'classes_auth_btn' => 'btn-flat btn-primary',
+    'classes_auth_card' => 'card-outline card-danger',
+    'classes_auth_header' => 'bg-dark',
+    'classes_auth_body' => 'bg-dark',
+    'classes_auth_footer' => 'bg-gray text-center',
+    'classes_auth_icon' => 'text-light',
+    'classes_auth_btn' => 'btn-flat btn-danger',
 
     /*
     |--------------------------------------------------------------------------
@@ -126,10 +126,10 @@ return [
     'classes_brand_text' => '',
     'classes_content_wrapper' => '',
     'classes_content_header' => '',
-    'classes_content' => '',
-    'classes_sidebar' => 'sidebar-dark-primary elevation-4',
+    'classes_content' => 'text-dark',
+    'classes_sidebar' => 'sidebar-dark-danger elevation-4',
     'classes_sidebar_nav' => '',
-    'classes_topnav' => 'navbar-white navbar-light',
+    'classes_topnav' => 'navbar-dark navbar-light',
     'classes_topnav_nav' => 'navbar-expand',
     'classes_topnav_container' => 'container',
 
@@ -237,86 +237,95 @@ return [
         ],
 
         // Sidebar items:
+
         [
-            'type' => 'sidebar-menu-search',
-            'text' => 'search',
-        ],
-        [
-            'text' => 'blog',
+            'text' => 'Inicio',
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
+        ['header' => 'Configuración Cuenta'],
         [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
-            'label_color' => 'success',
-        ],
-        ['header' => 'account_settings'],
-        [
-            'text' => 'profile',
+            'text' => 'Perfil',
             'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-user',
         ],
         [
-            'text' => 'change_password',
+            'text' => 'Cambiar Contraseña',
             'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',
         ],
+        ['header' => 'Control Cineflix'],
         [
-            'text'    => 'multilevel',
-            'icon'    => 'fas fa-fw fa-share',
+            'text'    => 'Peliculas',
+            'icon'    => 'fas fa-film text',
             'submenu' => [
                 [
-                    'text' => 'level_one',
+                    'text' => 'Actores',
                     'url'  => '#',
-                ],
-                [
-                    'text'    => 'level_one',
-                    'url'     => '#',
+                    'icon' => 'fas fa-user text',
                     'submenu' => [
                         [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
+                            'text' => 'Listado Actores',
+                            'url'  => '/actor',
+                            'icon' => 'fas fa-list text'
+                        ]
+                    ]
                 ],
                 [
-                    'text' => 'level_one',
-                    'url'  => '#',
+                    'text' => 'Director',
+                    'url'  => 'director',
+                    'icon' => 'fas fa-video text'
                 ],
+                [
+                    'text' => 'Genero',
+                    'url'  => '/genero',
+                    'icon' => 'fas fa-box-open'
+                ]
             ],
         ],
-        ['header' => 'labels'],
         [
-            'text'       => 'important',
+            'text'    => 'Alquiler',
+            'icon'    => 'fas fa-dollar-sign text',
+            'submenu' => [
+                [
+                    'text' => 'Listado de Alquiler',
+                    'url'  => 'alquiler',
+                    'icon' => 'fas fa-list'
+                ]
+            ],
+        ],
+        ['header' => 'Datos Adicionales'],
+        [
+            'text'       => 'Modificar Sexos',
+            'icon' => 'fas fa-list',
             'icon_color' => 'red',
-            'url'        => '#',
+            'url'        => '/sexo',
         ],
         [
-            'text'       => 'warning',
+            'text'       => 'Socios',
+            'icon' => 'fas fa-list',
             'icon_color' => 'yellow',
-            'url'        => '#',
+            'url'        => '/socio',
+            'submenu' => [
+                [
+                    'text' => 'Listado de Socios',
+                    'url'  => '/socio',
+                    'icon' => 'fas fa-list'
+                ]
+            ],
         ],
         [
-            'text'       => 'information',
+            'text'       => 'Formatos',
+            'icon' => 'fas fa-list',
             'icon_color' => 'cyan',
-            'url'        => '#',
+            'url'        => '/formato',
+            'submenu' => [
+                [
+                    'text' => 'Listado de Formatos',
+                    'url'  => '/formato',
+                    'icon' => 'fas fa-list'
+                ]
+            ],
         ],
     ],
 

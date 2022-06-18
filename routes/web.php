@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,9 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
+
+Route::redirect('/', '/dashboard', 301);
+Route::redirect('/home', '/dashboard', 301);
 
 Route::middleware([
     'auth:sanctum',
@@ -23,13 +27,12 @@ Route::middleware([
     'verified'
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('home');
+        return view('admin.index');
     })->name('dashboard');
 });
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //Route Hooks - Do not delete//
 	Route::view('pelicula', 'livewire.peliculas.index')->middleware('auth');
@@ -41,3 +44,13 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 	Route::view('actor_pelicula', 'livewire.actor-peliculas.index')->middleware('auth');
 	Route::view('actor', 'livewire.actors.index')->middleware('auth');
 	Route::view('sexo', 'livewire.sexos.index')->middleware('auth');
+	Route::view('user','profile.show')->middleware('auth');
+
+
+	/** Routes AdminLTE */
+	
+	Route::get('/home', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('home');
+	Route::get('/admin/login', [AuthController::class, 'getLogin'])->name('getLogin');
+	Route::get('director', function(){
+		return view('livewire.directors.index');
+	})->name('Director');
