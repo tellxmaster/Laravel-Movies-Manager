@@ -194,7 +194,7 @@ return [
     'register_url' => 'register',
     'password_reset_url' => 'password/reset',
     'password_email_url' => 'password/email',
-    'profile_url' => false,
+    'profile_url' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -228,7 +228,7 @@ return [
         // Navbar items:
         [
             'type'         => 'navbar-search',
-            'text'         => 'search',
+            'text'         => 'Buscar',
             'topnav_right' => true,
         ],
         [
@@ -243,16 +243,16 @@ return [
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
-        ['header' => 'Configuración Cuenta'],
+        ['header' => 'Menú Principal'],
         [
-            'text' => 'Perfil',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
+            'text' => 'Dashboard',
+            'url'  => '/dashboard',
+            'icon' => 'fas fa-chart-line',
         ],
         [
-            'text' => 'Cambiar Contraseña',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
+            'text' => 'Perfil',
+            'url'  => 'user/profile',
+            'icon' => 'fas fa-fw fa-user',
         ],
         ['header' => 'Control Cineflix'],
         [
@@ -410,7 +410,7 @@ return [
             ],
         ],
         'Sweetalert2' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
@@ -481,5 +481,5 @@ return [
     |
     */
 
-    'livewire' => false,
+    'livewire' => true,
 ];

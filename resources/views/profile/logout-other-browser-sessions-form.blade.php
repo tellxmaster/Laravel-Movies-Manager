@@ -1,4 +1,4 @@
-<x-jet-action-section>
+<x-jet-action-section class="container">
     <x-slot name="title">
         {{ __('Browser Sessions') }}
     </x-slot>
@@ -16,10 +16,10 @@
             <div class="mt-5 space-y-6">
                 <!-- Other Browser Sessions -->
                 @foreach ($this->sessions as $session)
-                    <div class="flex items-center">
+                    <div class="d-flex items-center">
                         <div>
                             @if ($session->agent->isDesktop())
-                                <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor" class="w-8 h-8 text-gray-500">
+                                <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor" class="text-gray-500" style="width: 35px; height: 35px;">
                                     <path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                                 </svg>
                             @else

@@ -1,13 +1,13 @@
-<x-jet-form-section submit="updateProfileInformation">
-    <x-slot name="title">
-        {{ __('Profile Information') }}
+<x-jet-form-section class="container" submit="updateProfileInformation">
+    <x-slot name="title" class="h1">
+        {{ __('Información Perfil') }}
     </x-slot>
 
     <x-slot name="description">
-        {{ __('Update your account\'s profile information and email address.') }}
+        {{ __('Actualiza la información de tu perfil como el email o nombre.') }}
     </x-slot>
 
-    <x-slot name="form">
+    <x-slot name="form" class="form-control">
         <!-- Profile Photo -->
         @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
             <div x-data="{photoName: null, photoPreview: null}" class="col-span-6 sm:col-span-4">
@@ -53,16 +53,16 @@
         @endif
 
         <!-- Name -->
-        <div class="col-span-6 sm:col-span-4">
-            <x-jet-label for="name" value="{{ __('Name') }}" />
-            <x-jet-input id="name" type="text" class="mt-1 block w-full" wire:model.defer="state.name" autocomplete="name" />
+        <div class="col-span-6 col-span-sm-4">
+            <x-jet-label for="name" value="{{ __('Nombre') }}" />
+            <x-jet-input id="name" type="text" class="form-control mt-1" wire:model.defer="state.name" autocomplete="name" />
             <x-jet-input-error for="name" class="mt-2" />
         </div>
 
         <!-- Email -->
-        <div class="col-span-6 sm:col-span-4">
+        <div class="col-span-6 col-span-sm-4">
             <x-jet-label for="email" value="{{ __('Email') }}" />
-            <x-jet-input id="email" type="email" class="mt-1 block w-full" wire:model.defer="state.email" />
+            <x-jet-input id="email" type="email" class="form-control mt-1" wire:model.defer="state.email" />
             <x-jet-input-error for="email" class="mt-2" />
 
             @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::emailVerification()) && ! $this->user->hasVerifiedEmail())
@@ -85,11 +85,20 @@
 
     <x-slot name="actions">
         <x-jet-action-message class="mr-3" on="saved">
-            {{ __('Saved.') }}
+            {{ __('Guardado.') }}
+            <script>
+                <script> 
+                    Swal.fire(
+                        'Actualización correcta!',
+                        'Actualizaste tus datos!',
+                        'success'
+                    )
+                </script>
+            </script>
         </x-jet-action-message>
 
         <x-jet-button wire:loading.attr="disabled" wire:target="photo">
-            {{ __('Save') }}
+            {{ __('Guardar') }}
         </x-jet-button>
     </x-slot>
 </x-jet-form-section>

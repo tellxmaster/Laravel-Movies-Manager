@@ -6,6 +6,8 @@
     <h1>App Peliculas</h1>
 @stop
 
+@section('plugins.Sweetalert2',true)
+
 @section('content')
     <p>Bienvenido al sitio de alquiler de peliculas.</p>
 @stop
@@ -15,5 +17,5 @@
 @stop
 
 @section('js')
-    <script> console.log('Hola!'); </script>
+    
 @stop
