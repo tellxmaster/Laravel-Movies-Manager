@@ -246,7 +246,7 @@ return [
         ['header' => 'Menú Principal'],
         [
             'text' => 'Dashboard',
-            'url'  => '/dashboard',
+            'url'  => '/home',
             'icon' => 'fas fa-chart-line',
         ],
         [
@@ -256,76 +256,69 @@ return [
         ],
         ['header' => 'Panel de Control'],
         [
+            'text' => 'Socios',
+            'url'  => 'socio',
+            'icon' => 'fas fa-handshake'
+        ],
+        [
             'text'    => 'Peliculas',
             'icon'    => 'fas fa-film text',
             'submenu' => [
                 [
-                    'text' => 'Actores',
-                    'url'  => '#',
-                    'icon' => 'fas fa-user text',
-                    'submenu' => [
-                        [
-                            'text' => 'Listado Actores',
-                            'url'  => '/actor',
-                            'icon' => 'fas fa-list text'
-                        ]
-                    ]
+                    'text' => 'Gestionar Peliculas',
+                    'url'  => 'pelicula',
+                    'icon' => 'fas fa-video'
                 ],
                 [
-                    'text' => 'Director',
+                    'text' => 'Gestionar Categorias',
+                    'url'  => '/genero',
+                    'icon' => 'fas fa-box-open'
+                ],
+                [
+                    'text' => 'Gestionar Actores',
+                    'url'  => '/actor',
+                    'icon' => 'fas fa-user text',
+                ],
+                [
+                    'text' => 'Gestionar Directores',
                     'url'  => 'director',
                     'icon' => 'fas fa-video text'
                 ],
                 [
-                    'text' => 'Genero',
-                    'url'  => '/genero',
-                    'icon' => 'fas fa-box-open'
-                ]
-            ],
-        ],
-        [
-            'text'    => 'Alquiler',
-            'icon'    => 'fas fa-dollar-sign text',
-            'submenu' => [
-                [
-                    'text' => 'Listado de Alquiler',
+                    'text' => 'Gestionar Alquileres',
                     'url'  => 'alquiler',
-                    'icon' => 'fas fa-list'
+                    'icon' => 'fas fa-dollar-sign'
                 ]
             ],
         ],
-        ['header' => 'Datos Adicionales'],
         [
-            'text'       => 'Modificar Sexos',
-            'icon' => 'fas fa-list',
-            'icon_color' => 'red',
-            'url'        => '/sexo',
-        ],
-        [
-            'text'       => 'Socios',
-            'icon' => 'fas fa-list',
-            'icon_color' => 'yellow',
-            'url'        => '/socio',
+            'text'    => 'Configuración Avanzada',
+            'icon'    => 'fas fa-wrench',
             'submenu' => [
                 [
-                    'text' => 'Listado de Socios',
-                    'url'  => '/socio',
-                    'icon' => 'fas fa-list'
+                    'text' => 'Campos Adicionales',
+                    'url'  => '#',
+                    'icon' => 'fas fa-plus',
+                    'submenu' => [
+                        [
+                            'text' => 'Sexos',
+                            'icon' => 'fas fa-mars-double',
+                            'url'  => 'sexo',
+                        ],
+                        [
+                            'text' => 'Formatos',
+                            'url'  => 'formato',
+                            'icon' => 'fas fa-file-video'
+                        ]
+                    ]
                 ]
             ],
         ],
+        ['header' => 'Reportes'],
         [
-            'text'       => 'Formatos',
-            'icon' => 'fas fa-list',
-            'icon_color' => 'cyan',
-            'url'        => '/formato',
-            'submenu' => [
-                [
-                    'text' => 'Listado de Formatos',
-                    'url'  => '/formato',
-                    'icon' => 'fas fa-list'
-                ]
-            ],
+            'text'       => 'Generar Reporte',
+            'icon' => 'fas fa-file-video',
+            'url'        => '/reporte',
         ],
     ],
 
@@ -400,11 +393,11 @@ return [
             ],
         ],
         'Chartjs' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js',
                 ],
             ],

@@ -2,10 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AuthController;
-use App\Models\Alquiler;
-use App\Models\Pelicula;
-use App\Models\Genero;
-use App\Models\User;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -18,30 +15,22 @@ use App\Models\User;
 |
 */
 
-/*Route::get('/', function () {
-    return view('welcome');
-});*/
+Route::get('/', function () {
+    return view('livewire.peliculas.index');
+});
 
-Route::redirect('/', '/dashboard', 301);
-Route::redirect('/home', '/dashboard', 301);
+/*Route::redirect('/', '/dashboard', 301);
+Route::redirect('/home', '/dashboard', 301);*/
+
+Route::view('/home', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('home');
 
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
-		$num_alquileres = Alquiler::all()->count();
-		$num_peliculas = Pelicula::all()->count();
-		$num_usuarios = User::all()->count();
-		$num_generos = Genero::all()->count();
-        return view('admin.index',[
-			'num_alquileres'=>$num_alquileres,
-			'num_peliculas'=>$num_peliculas,
-			'num_usuarios'=>$num_usuarios,
-			'num_generos'=>$num_generos,
-		]);
-    })->name('dashboard');
+    Route::get('/', 'welcome')
+	->name('home');
 });
 
 Auth::routes();

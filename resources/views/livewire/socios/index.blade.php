@@ -1,4 +1,11 @@
-@extends('layouts.app')
+@extends('adminlte::page')
+
+@section('title', 'Socios')
+
+@section('content_header')
+    <h1>Socios</h1>
+@stop
+
 @section('content')
 <div class="container-fluid">
     <div class="row justify-content-center">
@@ -14,8 +21,5 @@
         window.livewire.on('closeModal', () => {
             $('#createDataModal').modal('hide');
         });
-        $(document).ready( function () {
-            $('#actores').DataTable();
-        } );
     </script>
 @endsection

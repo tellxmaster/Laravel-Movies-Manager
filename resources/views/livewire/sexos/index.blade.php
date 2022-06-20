@@ -1,4 +1,11 @@
-@extends('layouts.app')
+@extends('adminlte::page')
+
+@section('title', 'Sexos')
+
+@section('content_header')
+    <h1>Sexos</h1>
+@stop
+
 @section('content')
 <div class="container-fluid">
     <div class="row justify-content-center">
