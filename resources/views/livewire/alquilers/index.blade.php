@@ -14,3 +14,14 @@
     </div>   
 </div>
 @endsection
+
+@section('js')
+    <script type="text/javascript">
+        window.livewire.on('closeModal', () => {
+            $('#createDataModal').modal('hide');
+        });
+        $(document).ready( function () {
+            $('#actores').DataTable();
+        } );
+    </script>
+@endsection

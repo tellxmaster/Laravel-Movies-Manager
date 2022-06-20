@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AuthController;
+use App\Models\Alquiler;
+use App\Models\Pelicula;
+use App\Models\Genero;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +31,16 @@ Route::middleware([
     'verified'
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('admin.index');
+		$num_alquileres = Alquiler::all()->count();
+		$num_peliculas = Pelicula::all()->count();
+		$num_usuarios = User::all()->count();
+		$num_generos = Genero::all()->count();
+        return view('admin.index',[
+			'num_alquileres'=>$num_alquileres,
+			'num_peliculas'=>$num_peliculas,
+			'num_usuarios'=>$num_usuarios,
+			'num_generos'=>$num_generos,
+		]);
     })->name('dashboard');
 });
 
