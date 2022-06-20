@@ -17,6 +17,7 @@ class HomeController extends Controller
         $num_peliculas = Pelicula::all()->count();
 		$num_usuarios = User::all()->count();
 		$num_generos = Genero::all()->count();
+        $peliculas=Pelicula::pluck('gen_p','id');
         return view('admin.index',[
             'num_alquileres'=>$num_alquileres,
             'num_peliculas'=>$num_peliculas,

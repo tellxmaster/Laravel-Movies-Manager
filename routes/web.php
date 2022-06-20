@@ -14,27 +14,24 @@ use App\Http\Controllers\Admin\AuthController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
-    return view('livewire.peliculas.index');
+    return view('welcome');
 });
-
-/*Route::redirect('/', '/dashboard', 301);
-Route::redirect('/home', '/dashboard', 301);*/
-
-Route::view('/home', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('home');
 
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/', 'welcome')
-	->name('home');
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
 });
 
 Auth::routes();
 
+/*Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');*/
+Route::get('/dashboard', [App\Http\Controllers\Admin\HomeController::class, 'index'])->middleware('auth');
 
 //Route Hooks - Do not delete//
 	Route::view('pelicula', 'livewire.peliculas.index')->middleware('auth');
@@ -50,8 +47,6 @@ Auth::routes();
 
 
 	/** Routes AdminLTE */
-	
-	Route::get('/home', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('home');
 	Route::get('/admin/login', [AuthController::class, 'getLogin'])->name('getLogin');
 	Route::get('director', function(){
 		return view('livewire.directors.index');
