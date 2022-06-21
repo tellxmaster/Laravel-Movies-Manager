@@ -193,12 +193,12 @@
 	    });
     </script>
 
-<script>
-const ctx = document.getElementById('myChart').getContext('2d');
-const myChart = new Chart(ctx, {
+    <script>
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ['Terror', 'Acción', 'Drama', 'Comedia', 'Drama', 'Ciencia Ficción'],
+        labels: [{{$label_generos = $label_generos->toArray()}}],
         datasets: [{
             label: '# de Alquileres',
             data: [12, 19, 3, 5, 2, 3],
