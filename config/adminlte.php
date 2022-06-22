@@ -246,7 +246,7 @@ return [
         ['header' => 'Menú Principal'],
         [
             'text' => 'Dashboard',
-            'url'  => '/home',
+            'url'  => '/dashboard',
             'icon' => 'fas fa-chart-line',
         ],
         [
