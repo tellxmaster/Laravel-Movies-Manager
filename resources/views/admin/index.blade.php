@@ -83,7 +83,7 @@
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="fas fa-chart-pie mr-1"></i>
-                  Alquileres
+                  Generos más Alquilados por los Usuarios
                 </h3>
                 <div class="card-tools">
                   <!--
@@ -194,14 +194,16 @@
     </script>
 
     <script>
-    const ctx = document.getElementById('myChart').getContext('2d');
-    const myChart = new Chart(ctx, {
+      const cData = JSON.parse(`<?php echo $data;?>`);
+      console.log(cData);
+      const ctx = document.getElementById('myChart').getContext('2d');
+      const myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: [{{$label_generos = $label_generos->toArray()}}],
+        labels: cData.label,
         datasets: [{
             label: '# de Alquileres',
-            data: [12, 19, 3, 5, 2, 3],
+            data: cData.data,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
