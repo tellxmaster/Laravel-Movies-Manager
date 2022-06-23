@@ -303,7 +303,7 @@
   // $('#revenue-chart').get(0).getContext('2d');
 
   var salesGraphChartData = {
-    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Noviembre'],
+    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre'],
     datasets: [
       {
         label: 'Usuarios',
@@ -316,7 +316,7 @@
         pointHoverRadius: 7,
         pointColor: '#d60000',
         pointBackgroundColor: '#d60000',
-        data: [2666, 2778, 4912, 3767, 6810, 5670, 4820, 15073, 10687, 8432]
+        data: [{{$enero}},{{$febrero}},{{$marzo}},{{$abril}},{{$mayo}},{{$junio}},{{$julio}},{{$agosto}},{{$septiembre}},{{$octubre}}]
       }
     ]
   }
@@ -340,7 +340,7 @@
       }],
       yAxes: [{
         ticks: {
-          stepSize: 5000,
+          stepSize: 10,
           fontColor: '#000000'
         },
         gridLines: {

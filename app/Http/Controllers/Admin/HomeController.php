@@ -35,15 +35,19 @@ class HomeController extends Controller
         $data['data'] = json_encode($data);
 
         /** Obtiene los registros de usuarios por mes */
-        // $meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Noviembre'];
-        // $user_data = [];
-        // for($i=1 ; $i<10 ; $i++){
-        //    $user_data['label'] = $meses[$i];
-        //    $user_data['data'] = User::all()->whereBetween('created_at', ['2022-'.$i.'-01', '2022-'.$i.'-31'])->count();
-        //}
-        // dd($user_data);
-        // $user_data['data'] = json_encode($user_data); 
-        
+        $meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Noviembre'];
+        $enero = User::all()->whereBetween('created_at', ['2022-01-01', '2022-01-31'])->count();
+        $febrero = User::all()->whereBetween('created_at', ['2022-02-01', '2022-02-28'])->count();
+        $marzo = User::all()->whereBetween('created_at', ['2022-03-01', '2022-03-31'])->count();
+        $abril = User::all()->whereBetween('created_at', ['2022-04-01', '2022-04-30'])->count();
+        $mayo = User::all()->whereBetween('created_at', ['2022-05-01', '2022-05-31'])->count();
+        $junio = User::all()->whereBetween('created_at', ['2022-06-01', '2022-06-30'])->count();
+        $julio = User::all()->whereBetween('created_at', ['2022-07-01', '2022-07-31'])->count();
+        $agosto = User::all()->whereBetween('created_at', ['2022-08-01', '2022-08-31'])->count();
+        $septiembre = User::all()->whereBetween('created_at', ['2022-09-01', '2022-09-30'])->count();
+        $octubre = User::all()->whereBetween('created_at', ['2022-10-01', '2022-10-31'])->count();
+        $noviembre = User::all()->whereBetween('created_at', ['2022-11-01', '2022-11-30'])->count();
+            
         /** Pelicula más vista */
     
         $mayor = [
@@ -80,7 +84,18 @@ class HomeController extends Controller
             'alquilers'=>$alquilers,
             'generos'=>$generos,
             'top_pelicula'=>$top_pelicula,
-            
+            'enero'=>$enero,
+            'febrero'=>$febrero,
+            'marzo'=>$marzo,
+            'abril'=>$abril,
+            'mayo'=>$mayo,
+            'junio'=>$junio,
+            'julio'=>$julio,
+            'agosto'=>$agosto,
+            'septiembre'=>$septiembre,
+            'octubre'=>$octubre,
+            'noviembre'=>$noviembre,
+
         ],$data);
     }
 }
