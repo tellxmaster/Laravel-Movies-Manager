@@ -16,7 +16,7 @@
       <!-- small box -->
       <div class="small-box bg-info">
         <div class="inner">
-          <h3> {{$num_peliculas}} </h3>
+          <h3> {{$stats['num_pel']}} </h3>
 
           <p>Peliculas Agregadas</p>
         </div>
@@ -29,37 +29,37 @@
     <div class="col-lg-3 col-6">
       <div class="small-box bg-success">
         <div class="inner">
-          <h3> {{$num_alquileres}} </h3>
+          <h3> {{$stats['num_alq']}} </h3>
           <p>Peliculas Alquiladas</p>
         </div>
         <div class="icon">
           <i class="ion ion-stats-bars"></i>
         </div>
-        <a href="#" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+        <a href="/alquiler" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
       </div>
     </div>
     <div class="col-lg-3 col-6">
       <div class="small-box bg-warning">
         <div class="inner">
-          <h3> {{$num_usuarios}} </h3>
-          <p>Usuarios Nuevos</p>
+          <h3> {{$stats['num_soc']}} </h3>
+          <p>Socios Nuevos</p>
         </div>
         <div class="icon">
           <i class="ion ion-android-person-add"></i>
         </div>
-        <a href="#" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+        <a href="/socio" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
       </div>
     </div>
     <div class="col-lg-3 col-6">
       <div class="small-box bg-danger">
         <div class="inner">
-          <h3>{{$num_generos}}</h3>
+          <h3>{{$stats['num_gen']}}</h3>
           <p>Generos Agregados</p>
         </div>
         <div class="icon">
           <i class="ion ion-ios-box"></i>
         </div>
-        <a href="#" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+        <a href="/genero" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
       </div>
     </div>
   </div>
@@ -76,12 +76,12 @@
         <div class="card-body">
           <div class="d-flex">
             <p class="d-flex flex-column">
-              <span class="text-bold text-lg">{{$num_peliculas}}</span>
+              <span class="text-bold text-lg">{{$stats['num_pel']}}</span>
               <span>Total de peliculas en el inventario</span>
             </p>
             <p class="ml-auto d-flex flex-column text-right">
               <span class="text-success">
-                <i class="fas fa-arrow-up"></i> {{$tasa_crecimiento}}%
+                <i class="fas fa-arrow-up"></i> %
               </span>
               <span class="text-muted">Desde la semana pasada</span>
             </p>
@@ -120,7 +120,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							@foreach($alquilers as $row)
+							@foreach($lrents as $row)
 							<tr>
 								<td>{{ $row->socio->soc_nombre }}</td>
 								<td>{{ $row->pelicula->pel_nombre }}</td>
@@ -140,15 +140,15 @@
       <div class="card">
         <div class="card-header border-0">
           <div class="d-flex justify-content-between">
-            <h3 class="card-title">Usuarios Registrados</h3>
+            <h3 class="card-title">Socios Registrados</h3>
             <a href="javascript:void(0);" class="btn btn-danger">Generar Reporte</a>
           </div>
         </div>
         <div class="card-body">
           <div class="d-flex">
             <p class="d-flex flex-column">
-              <span class="text-bold text-lg">{{$num_usuarios}}</span>
-              <span>Total usuarios registrados</span>
+              <span class="text-bold text-lg">{{$stats['num_soc']}}</span>
+              <span>Total socios registrados</span>
             </p>
             <p class="ml-auto d-flex flex-column text-right">
               <span class="text-success">
@@ -162,11 +162,13 @@
           <div class="position-relative mb-4">
              <!--<canvas id="sales-chart" height="200"></canvas>-->
              <!-- <canvas id="lineChart" height="200"></canvas>-->
-             <canvas class="chart" id="line-chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+             <canvas class="chart" id="line-chart-users" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
           </div>
+
         </div>
       </div>
       <!-- /.card -->
+      
 
       <div class="card">
         <div class="card-header border-0">
@@ -223,7 +225,82 @@
       </div>
     </div>
     <!-- /.col-md-6 -->
+    <!-- /.col-md-6 -->
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-header border-0">
+          <div class="d-flex justify-content-between">
+            <h3 class="card-title">Alquileres de Peliculas</h3>
+            <a href="javascript:void(0);" class="btn btn-danger">Generar Reporte</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="d-flex">
+            <p class="d-flex flex-column">
+              <span class="text-bold text-lg">{{$stats['num_alq']}}</span>
+              <span>Total Alquileres</span>
+            </p>
+            <p class="ml-auto d-flex flex-column text-right">
+              <span class="text-success">
+                <i class="fas fa-arrow-up"></i> 33.1%
+              </span>
+              <span class="text-muted">Respecto al Mes</span>
+            </p>
+          </div>
+          <!-- /.d-flex -->
+
+          <div class="position-relative mb-4">
+             <canvas id="alquileres-chart" style="height: 300px;"></canvas>
+          </div>
+
+        </div>
+      </div>
+      <!-- /.card -->
   </div>
+<!-- Card Warming Alquileres-->
+<div class="col-lg-6">
+  <div class="card">
+        <div class="card-header border-0">
+          <h3 class="card-title">Tiempo restante de alquileres</h3>
+          <div class="card-tools">
+            <a href="#" class="btn btn-tool btn-sm">
+              <i class="fas fa-download"></i>
+            </a>
+            <a href="#" class="btn btn-tool btn-sm">
+              <i class="fas fa-bars"></i>
+            </a>
+          </div>
+        </div>
+        <div class="card-body table-responsive p-0">        
+					<table class="table table-striped table-valign-middle">
+						<thead class="thead">
+							<tr> 
+								<th>Socio</th>
+								<th>Pelicula</th>
+								<th class="text-center">Dias faltantes</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach($rest_time as $row)
+							<tr>
+								<td>{{ $row->soc_nombre }}</td>
+								<td>{{ $row->pel_nombre }}</td>
+								<td class="text-center">
+                @if ($row->Days<=0)
+                  <span class="badge badge-danger">{{ $row->Days }} días  <i class="fas fa-skull"></i></span></td>
+                @elseif ($row->Days>0 && $row->Days<5)
+                  <span class="badge badge-warning">{{ $row->Days }} días <i class="ion ion-android-warning"></i></span></td>
+                @else ($row->Days>5 && $row->Days<30)
+                  <span class="badge badge-success">{{ $row->Days }} días <i class="ion ion-checkmark-circled"></i></span></td>
+                  @endif
+							@endforeach
+						</tbody>
+					</table>						
+				</div>
+      </div>
+      <!-- /.card -->
+    </div>
+    </div>
   <!-- /.row -->
 </div>
 @endsection
@@ -298,8 +375,8 @@
     }
   });
 
-  /** USER CHART */
-  var salesGraphChartCanvas = $('#line-chart').get(0).getContext('2d')
+  /** SER CHART */
+  var salesGraphChartCanvas = $('#line-chart-users').get(0).getContext('2d')
   // $('#revenue-chart').get(0).getContext('2d');
 
   var salesGraphChartData = {
@@ -311,12 +388,12 @@
         borderWidth: 2,
         lineTension: 0,
         spanGaps: true,
-        borderColor: '#d60000',
+        borderColor: '#F30067',
         pointRadius: 3,
         pointHoverRadius: 7,
         pointColor: '#d60000',
         pointBackgroundColor: '#d60000',
-        data: [{{$enero}},{{$febrero}},{{$marzo}},{{$abril}},{{$mayo}},{{$junio}},{{$julio}},{{$agosto}},{{$septiembre}},{{$octubre}}]
+        data: {{$spm['data']}} 
       }
     ]
   }
@@ -361,6 +438,66 @@
   })
 
   /** GRAFICA USUARIOS */
+
+  /* GRAFICA ALQUILERS*/
+  const alq_chart = document.getElementById('alquileres-chart').getContext('2d');
+
+  var alquilerGraphChartData = {
+    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre'],
+    datasets: [
+      {
+        label: 'Alquileres',
+        fill: false,
+        borderWidth: 3,
+        lineTension: 0.3,
+        spanGaps: true,
+        borderColor: '#00FFC6',
+        pointRadius: 3,
+        pointHoverRadius: 7,
+        pointColor: '#d60000',
+        pointBackgroundColor: '#d60000',
+        data: {{$apm['data']}} 
+      }
+    ]
+  }
+
+  var alquilerGraphChartOptions = {
+    maintainAspectRatio: false,
+    responsive: true,
+    legend: {
+      display: false
+    },
+    scales: {
+      xAxes: [{
+        ticks: {
+          fontColor: '#000000'
+        },
+        gridLines: {
+          display: false,
+          color: '#000000',
+          drawBorder: false
+        }
+      }],
+      yAxes: [{
+        ticks: {
+          stepSize: 1,
+          fontColor: '#000000'
+        },
+        gridLines: {
+          display: true,
+          color: '#000000',
+          drawBorder: false
+        },
+        
+      }]
+    }
+  }
+
+  const alquilerChart = new Chart(alq_chart, {
+    type: 'line',
+    data: alquilerGraphChartData,
+    options: alquilerGraphChartOptions
+  });
 
   
 </script>

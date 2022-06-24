@@ -11,7 +11,7 @@
            <div class="modal-body">
 				<form>
             <div class="form-group">
-                <label for="soc_id"></label>
+                <label for="soc_id">Socio</label>
                 <select wire:model="soc_id" name="soc_id" id="soc_id" class="form-control">
                     <option value="0" select>Seleccione una opción</option>
                     @foreach($socios as $soc_id=>$soc_nombre)
@@ -20,7 +20,7 @@
                 </select>@error('soc_id') <span class="error text-danger">{{ $message }}</span> @enderror
             </div>
             <div class="form-group">
-                <label for="pel_id"></label>
+                <label for="pel_id">Pelicula</label>
                 <select wire:model="pel_id" name="pel_id" id="pel_id" class="form-control">
                     <option value="0" select>Seleccione una opción</option>
                     @foreach($peliculas as $pel_id=>$pel_nombre)

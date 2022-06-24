@@ -3,52 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Livewire\Peliculas;
-use Illuminate\Http\Request;
 use App\Models\Alquiler;
 use App\Models\Pelicula;
 use App\Models\Genero;
 use App\Models\User;
+use App\Models\Socio;
+use DB;
 
 
 class HomeController extends Controller
 {
     public function index(){
-        /** Obteniene statCount */
-        $num_alquileres = Alquiler::all()->count();
-        $num_peliculas = Pelicula::all()->count();
-		$num_usuarios = User::all()->count();
-		$num_generos = Genero::all()->count();
-        $alquileres = Alquiler::all();
-        $num_inicial = 6;
-        $tasa_crecimiento=round((($num_peliculas-$num_inicial)/$num_inicial)*100);
-        $alquilers = Alquiler::select('soc_id','pel_id','alq_valor','created_at')->orderBy('created_at')->take(3)->get();
-
-        /** Obteniene generos más alquilados */
-        $generos = Genero::all();
-        $data = [];
-        foreach( $generos as $genero){
-            $data['label'][] = $genero->gen_nombre;
-            //$data['data'][] = Alquiler::all()->where('pel_id', ($pel = optional(Pelicula::where('gen_id',$genero->id)->first()->id)) ? $pel : 0)->count();
-            $data['data'][] = Pelicula::all()->where('gen_id',$genero->id)->count();
-        }
-        $data['data'] = json_encode($data);
-
-        /** Obtiene los registros de usuarios por mes */
-        $meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Noviembre'];
-        $enero = User::all()->whereBetween('created_at', ['2022-01-01', '2022-01-31'])->count();
-        $febrero = User::all()->whereBetween('created_at', ['2022-02-01', '2022-02-28'])->count();
-        $marzo = User::all()->whereBetween('created_at', ['2022-03-01', '2022-03-31'])->count();
-        $abril = User::all()->whereBetween('created_at', ['2022-04-01', '2022-04-30'])->count();
-        $mayo = User::all()->whereBetween('created_at', ['2022-05-01', '2022-05-31'])->count();
-        $junio = User::all()->whereBetween('created_at', ['2022-06-01', '2022-06-30'])->count();
-        $julio = User::all()->whereBetween('created_at', ['2022-07-01', '2022-07-31'])->count();
-        $agosto = User::all()->whereBetween('created_at', ['2022-08-01', '2022-08-31'])->count();
-        $septiembre = User::all()->whereBetween('created_at', ['2022-09-01', '2022-09-30'])->count();
-        $octubre = User::all()->whereBetween('created_at', ['2022-10-01', '2022-10-31'])->count();
-        $noviembre = User::all()->whereBetween('created_at', ['2022-11-01', '2022-11-30'])->count();
-            
-        /** Pelicula más vista */
     
         $mayor = [
             'id'=>1,
@@ -69,33 +34,86 @@ class HomeController extends Controller
             'num_alq'=>$mayor['num_alq']
         ];
         
+        //$alquiler = Alquiler::select(array('id','soc_id','pel_id','alq_fecha_desde','alq_fecha_hasta', DB::raw("DATEDIFF(alq_fecha_desde,alq_fecha_hasta)AS Days")));
         
-        
-        
-        
-
         /** Retorna los datos a la vista */
+        $lrents = $this->getLastRents(); //Ultimas Rentas
+        $stats = $this->getStats();     //Numero Estadisticas
+        $data = $this->getAllGender();
+        $spm = $this->getSocByDate();
+        $apm = $this->getAlqByDate();
+        $rest_time = $this->getRestingTime();
+        //dd($stats);
+       // dd($rest_time);
+        //dd($rest_time[1]->pel_id);
         return view('admin.index',[
-            'num_alquileres'=>$num_alquileres,
-            'num_peliculas'=>$num_peliculas,
-			'num_usuarios'=>$num_usuarios,
-			'num_generos'=>$num_generos,
-            'tasa_crecimiento'=>$tasa_crecimiento,
-            'alquilers'=>$alquilers,
-            'generos'=>$generos,
+            'stats'=>$stats,
+            'lrents'=>$lrents,
             'top_pelicula'=>$top_pelicula,
-            'enero'=>$enero,
-            'febrero'=>$febrero,
-            'marzo'=>$marzo,
-            'abril'=>$abril,
-            'mayo'=>$mayo,
-            'junio'=>$junio,
-            'julio'=>$julio,
-            'agosto'=>$agosto,
-            'septiembre'=>$septiembre,
-            'octubre'=>$octubre,
-            'noviembre'=>$noviembre,
-
+            'spm'=>$spm,
+            'apm'=>$apm,
+            'rest_time'=>$rest_time
         ],$data);
+    }
+
+    /** Obteniene numero de peliculas alquileres y otros datos */
+    public function getStats()
+    {
+       $stats = [
+        'num_alq'    => Alquiler::all()->count(),
+        'num_pel'    => Pelicula::all()->count(),
+		'num_soc'    => Socio::all()->count(),
+		'num_gen'    => Genero::all()->count(),
+        'alquileres' => $this->getLastRents()
+       ];
+       return $stats;
+    }
+
+    public function getLastRents(){
+        return Alquiler::select('soc_id','pel_id','alq_valor','created_at')->orderBy('created_at')->take(3)->get();
+    }
+
+
+    public function getSocByDate(){
+        $meses = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+        $socios_per_month = [];
+        $spm = [];
+        foreach($meses as $mes){
+            array_push($socios_per_month, (Socio::all()->whereBetween('created_at', ['2022-'.$mes.'-01', '2022-'.$mes.'-31'])->count()));
+        }
+        $spm['data'] = json_encode($socios_per_month);
+        return $spm;
+    }
+
+    public function getAlqByDate(){
+        $meses = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+        $alquiler_per_month = [];
+        $apm = [];
+        foreach($meses as $mes){
+            array_push($alquiler_per_month, (Alquiler::all()->whereBetween('created_at', ['2022-'.$mes.'-01', '2022-'.$mes.'-31'])->count()));
+        }
+        $apm['data'] = json_encode($alquiler_per_month);
+        return $apm;
+    }
+
+    public function getAllGender(){
+        /** Obteniene generos más alquilados */
+        $generos = Genero::all();
+        $data = [];
+        foreach( $generos as $genero){
+            $data['label'][] = $genero->gen_nombre;
+            //$data['data'][] = Alquiler::all()->where('pel_id', ($pel = optional(Pelicula::where('gen_id',$genero->id)->first()->id)) ? $pel : 0)->count();
+            $data['data'][] = Pelicula::all()->where('gen_id',$genero->id)->count();
+        }
+        $data['data'] = json_encode($data);
+        return $data;
+    }
+
+    public function getRestingTime(){
+       // $al = DB::table('alquiler')->select('id','pel_id',DB::raw("DATEDIFF(alq_fecha_hasta,alq_fecha_desde)AS Days"))->get();
+        $al = DB::table('alquiler')->join('socio','alquiler.soc_id','=','socio.id')->join('pelicula','alquiler.pel_id','=','pelicula.id')->select('socio.soc_nombre','pelicula.pel_nombre','alquiler.created_at',DB::raw("DATEDIFF(alq_fecha_hasta,alq_fecha_desde)AS Days"))->orderBy('Days','asc')->get();
+        //$resting_time['data'] = json_encode($al);
+        //return $resting_time['data'];
+        return $al;
     }
 }
