@@ -172,7 +172,7 @@
 
       <div class="card">
         <div class="card-header border-0">
-          <h3 class="card-title">Online Store Overview</h3>
+          <h3 class="card-title">Top Peliculas Alquiladas</h3>
           <div class="card-tools">
             <a href="#" class="btn btn-sm btn-tool">
               <i class="fas fa-download"></i>
@@ -182,45 +182,24 @@
             </a>
           </div>
         </div>
-        <div class="card-body">
-          <div class="d-flex justify-content-between align-items-center border-bottom mb-3">
-            <p class="text-success text-xl">
-              <i class="ion ion-ios-refresh-empty"></i>
-            </p>
-            <p class="d-flex flex-column text-right">
-              <span class="font-weight-bold">
-                <i class="ion ion-android-arrow-up text-success"></i> 12%
-              </span>
-              <span class="text-muted"> </span>
-            </p>
+        <div class="card-body d-flex" >
+          <div class="col-9">
+            <h2>{{$top_pelicula['nombre']}}</h2>
+            <hr>
+            <div class="row">
+            <div class="col">
+              <p><b>Veces Alquiladas: </b>{{$top_pelicula['num_alq']}}</p>
+              <p><b>Estreno: </b>{{$top_pelicula['fecha_est']}}</p>
+            </div>
+            <div class="col">
+              <p><b>Ingresos Generados</b></p>
+              <p class="text-success"><b>${{$top_pelicula['ingresos']}} <i class="ion ion-ios-paper text-success"></i></b></p>
+            </div>
+            </div>
           </div>
-          <!-- /.d-flex -->
-          <div class="d-flex justify-content-between align-items-center border-bottom mb-3">
-            <p class="text-warning text-xl">
-              <i class="ion ion-arrow-up-a"></i>
-            </p>
-            <span><b><h4>PELICULA TOP</b></h4></span>
-            <p class="d-flex flex-column text-right">
-              <span class="font-weight-bold">
-                <i class="ion ion-android-arrow-up text-warning"></i> {{$top_pelicula['num_alq']}}
-              </span>
-
-              <span class="text-muted">{{ $top_pelicula['nombre'] }}</span>
-            </p>
-          </div>
-          <!-- /.d-flex -->
-          <div class="d-flex justify-content-between align-items-center mb-0">
-            <p class="text-danger text-xl">
-              <i class="ion ion-ios-people-outline"></i>
-            </p>
-            <p class="d-flex flex-column text-right">
-              <span class="font-weight-bold">
-                <i class="ion ion-android-arrow-down text-danger"></i> 1%
-              </span>
-              <span class="text-muted">REGISTRATION RATE</span>
-            </p>
-          </div>
-          <!-- /.d-flex -->
+          <div class="col-2">
+            <img width="105px" class="rounded" src="https://m.media-amazon.com/images/I/41H5ZQQN4RL._AC_SY580_.jpg" alt="">
+          </div>         
         </div>
       </div>
     </div>
@@ -271,7 +250,7 @@
             </a>
           </div>
         </div>
-        <div class="card-body table-responsive p-0">        
+        <div id="table_data" class="card-body table-responsive p-0">        
 					<table class="table table-striped table-valign-middle">
 						<thead class="thead">
 							<tr> 
@@ -297,6 +276,9 @@
 						</tbody>
 					</table>						
 				</div>
+        <div class="card-footer">
+            {{ $rest_time->links() }}
+        </div>
       </div>
       <!-- /.card -->
     </div>
@@ -344,12 +326,12 @@
       datasets: [{
         data: cData.data,
         backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)'
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
         ],
         borderColor: [
           'rgba(255, 99, 132, 1)',
@@ -417,7 +399,7 @@
       }],
       yAxes: [{
         ticks: {
-          stepSize: 10,
+          stepSize: 2,
           fontColor: '#000000'
         },
         gridLines: {
@@ -429,15 +411,13 @@
     }
   }
 
-  // This will get the first returned node in the jQuery collection.
-  // eslint-disable-next-line no-unused-vars
+
   var salesGraphChart = new Chart(salesGraphChartCanvas, { // lgtm[js/unused-local-variable]
     type: 'line',
     data: salesGraphChartData,
     options: salesGraphChartOptions
   })
 
-  /** GRAFICA USUARIOS */
 
   /* GRAFICA ALQUILERS*/
   const alq_chart = document.getElementById('alquileres-chart').getContext('2d');
@@ -447,15 +427,16 @@
     datasets: [
       {
         label: 'Alquileres',
-        fill: false,
-        borderWidth: 3,
+        fill: true,
+        fillColor: '#99C4C8',
+        borderWidth: 2,
         lineTension: 0.3,
         spanGaps: true,
-        borderColor: '#00FFC6',
-        pointRadius: 3,
+        borderColor: '#99C4C8',
+        pointRadius: 4,
         pointHoverRadius: 7,
-        pointColor: '#d60000',
-        pointBackgroundColor: '#d60000',
+        pointColor: '#18978F',
+        pointBackgroundColor: '#18978F',
         data: {{$apm['data']}} 
       }
     ]

@@ -31,7 +31,9 @@ class HomeController extends Controller
         }
         $top_pelicula=[
             'nombre'=>(Pelicula::select('pel_nombre')->where('id',$mayor['id'])->first()->pel_nombre),
-            'num_alq'=>$mayor['num_alq']
+            'num_alq'=>$mayor['num_alq'],
+            'fecha_est'=>(Pelicula::select('pel_fecha_estreno')->where('id',$mayor['id'])->first()->pel_fecha_estreno),
+            'ingresos'=> DB::table('alquiler')->where('pel_id', $mayor['id'])->sum('alq_valor'),
         ];
         
         //$alquiler = Alquiler::select(array('id','soc_id','pel_id','alq_fecha_desde','alq_fecha_hasta', DB::raw("DATEDIFF(alq_fecha_desde,alq_fecha_hasta)AS Days")));
@@ -111,9 +113,10 @@ class HomeController extends Controller
 
     public function getRestingTime(){
        // $al = DB::table('alquiler')->select('id','pel_id',DB::raw("DATEDIFF(alq_fecha_hasta,alq_fecha_desde)AS Days"))->get();
-        $al = DB::table('alquiler')->join('socio','alquiler.soc_id','=','socio.id')->join('pelicula','alquiler.pel_id','=','pelicula.id')->select('socio.soc_nombre','pelicula.pel_nombre','alquiler.created_at',DB::raw("DATEDIFF(alq_fecha_hasta,alq_fecha_desde)AS Days"))->orderBy('Days','asc')->get();
+        //$al = DB::table('alquiler')->join('socio','alquiler.soc_id','=','socio.id')->join('pelicula','alquiler.pel_id','=','pelicula.id')->select('socio.soc_nombre','pelicula.pel_nombre','alquiler.created_at',DB::raw("DATEDIFF(alq_fecha_hasta,alq_fecha_desde)AS Days"))->orderBy('Days','asc')->get();
+        $resting_time = DB::table('alquiler')->join('socio','alquiler.soc_id','=','socio.id')->join('pelicula','alquiler.pel_id','=','pelicula.id')->select('socio.soc_nombre','pelicula.pel_nombre','alquiler.created_at',DB::raw("DATEDIFF(alq_fecha_hasta,alq_fecha_desde)AS Days"))->orderBy('Days','asc')->paginate(6);
         //$resting_time['data'] = json_encode($al);
         //return $resting_time['data'];
-        return $al;
+        return $resting_time;
     }
 }
