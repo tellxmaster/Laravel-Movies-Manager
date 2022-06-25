@@ -15,49 +15,78 @@
     <div class="col-lg-3 col-6">
       <!-- small box -->
       <div class="small-box bg-info">
-        <div class="inner">
-          <h3> {{$stats['num_pel']}} </h3>
-
-          <p>Peliculas Agregadas</p>
+        <div class="inner d-flex">
+          <div class="col">
+            <div class="row">
+              <h3> {{$stats['num_pel_mes']}} </h3>
+              <small style="padding-top: 1.2rem; padding-left: 0.5em;"> mes </small>
+            </div>
+          </div>
+          <div class="col">
+            <h4><small> <b>Total:</b> {{$stats['num_pel']}}</small></h4>
+          </div>
         </div>
+        <p class="pl-3">Peliculas agregadas </p>
         <div class="icon">
           <i class="ion ion-ios-videocam"></i>
         </div>
         <a href="/pelicula" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
       </div>
     </div>
+
     <div class="col-lg-3 col-6">
+      <!-- small box -->
       <div class="small-box bg-success">
-        <div class="inner">
-          <h3> {{$stats['num_alq']}} </h3>
-          <p>Peliculas Alquiladas</p>
+        <div class="inner d-flex">
+          <div class="col">
+            <div class="row">
+              <h3> {{$stats['num_alq_mes']}} </h3>
+              <small style="padding-top: 1.2rem; padding-left: 0.5em;"> mes </small>
+            </div>
+          </div>
+          <div class="col">
+            <h4><small> <b>Total:</b> {{$stats['num_alq']}}</small></h4>
+          </div>
         </div>
+        <p class="pl-3">Nuevos alquileres </p>
         <div class="icon">
           <i class="ion ion-stats-bars"></i>
         </div>
         <a href="/alquiler" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
       </div>
     </div>
+
     <div class="col-lg-3 col-6">
+      <!-- small box -->
       <div class="small-box bg-warning">
-        <div class="inner">
-          <h3> {{$stats['num_soc']}} </h3>
-          <p>Socios Nuevos</p>
+        <div class="inner d-flex">
+          <div class="col">
+            <div class="row">
+              <h3> {{$stats['num_soc_mes']}} </h3>
+              <small style="padding-top: 1.2rem; padding-left: 0.5em;"> mes </small>
+            </div>
+          </div>
+          <div class="col">
+            <h4><small> <b>Total:</b> {{$stats['num_soc']}}</small></h4>
+          </div>
         </div>
+        <p class="pl-3">Socios Nuevos</p>
         <div class="icon">
           <i class="ion ion-android-person-add"></i>
         </div>
         <a href="/socio" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
       </div>
     </div>
+
+
     <div class="col-lg-3 col-6">
       <div class="small-box bg-danger">
         <div class="inner">
-          <h3>{{$stats['num_gen']}}</h3>
-          <p>Generos Agregados</p>
+          <h3>{{$stats['ingresos_mes']}} $</h3>
+          <p>Ingreso mes actual</p>
         </div>
         <div class="icon">
-          <i class="ion ion-ios-box"></i>
+          <i class="ion ion-cash"></i>
         </div>
         <a href="/genero" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
       </div>
@@ -69,7 +98,7 @@
       <div class="card">
         <div class="card-header border-0">
           <div class="d-flex justify-content-between">
-            <h3 class="card-title">Generos más alquilados</h3>
+            <h3 class="card-title">Géneros disponibles en el Inventario</h3>
             <a href="javascript:void(0);" class="btn btn-danger">Generar Reporte</a>
           </div>
         </div>
@@ -81,7 +110,7 @@
             </p>
             <p class="ml-auto d-flex flex-column text-right">
               <span class="text-success">
-                <i class="fas fa-arrow-up"></i> %
+                <i class="fas fa-arrow-up"></i> {{$stats['tasa_crecimiento_gen']}}%
               </span>
               <span class="text-muted">Desde la semana pasada</span>
             </p>
@@ -152,7 +181,7 @@
             </p>
             <p class="ml-auto d-flex flex-column text-right">
               <span class="text-success">
-                <i class="fas fa-arrow-up"></i> 33.1%
+                <i class="fas fa-arrow-up"></i> {{$stats['tasa_crecimiento_soc']}}%
               </span>
               <span class="text-muted">Respecto al Mes</span>
             </p>
@@ -221,7 +250,7 @@
             </p>
             <p class="ml-auto d-flex flex-column text-right">
               <span class="text-success">
-                <i class="fas fa-arrow-up"></i> 33.1%
+                <i class="fas fa-arrow-up"></i> {{$stats['tasa_crecimiento_alq']}}%
               </span>
               <span class="text-muted">Respecto al Mes</span>
             </p>

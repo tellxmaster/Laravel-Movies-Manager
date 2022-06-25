@@ -61,12 +61,26 @@ class HomeController extends Controller
     /** Obteniene numero de peliculas alquileres y otros datos */
     public function getStats()
     {
+        $valor_final_gen = Genero::all()->count();
+        $valor_final_soc = Socio::all()->count();
+        $valor_final_alq = Alquiler::all()->count();
+        $valor_inicial_gen = 4;
+        $valor_inicial_soc = 20;
+        $valor_inicial_alq = 8;
+
+        $mes = date('m');
        $stats = [
-        'num_alq'    => Alquiler::all()->count(),
-        'num_pel'    => Pelicula::all()->count(),
-		'num_soc'    => Socio::all()->count(),
-		'num_gen'    => Genero::all()->count(),
-        'alquileres' => $this->getLastRents()
+        'num_alq_mes'    => Alquiler::all()->whereBetween('created_at', ['2022-'.$mes.'-01', '2022-'.$mes.'-31'])->count(),
+        'num_pel_mes'    => Pelicula::all()->whereBetween('created_at', ['2022-'.$mes.'-01', '2022-'.$mes.'-31'])->count(),
+		'num_soc_mes'    => Socio::all()->whereBetween('created_at', ['2022-'.$mes.'-01', '2022-'.$mes.'-31'])->count(),
+        'num_alq'   => Alquiler::all()->count(),
+        'num_pel'   => Pelicula::all()->count(),
+		'num_soc'   => Socio::all()->count(),
+        'ingresos_mes'=> DB::table('alquiler')->whereBetween('created_at', ['2022-'.$mes.'-01', '2022-'.$mes.'-31'])->sum('alq_valor'),
+        'alquileres' => $this->getLastRents(),
+        'tasa_crecimiento_gen'=>(($valor_final_gen-$valor_inicial_gen)/$valor_inicial_gen)*100,
+        'tasa_crecimiento_soc'=>(($valor_final_soc-$valor_inicial_soc)/$valor_inicial_soc)*100,
+        'tasa_crecimiento_alq'=>(($valor_final_alq-$valor_inicial_alq)/$valor_inicial_alq)*100
        ];
        return $stats;
     }
