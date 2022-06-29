@@ -61,26 +61,25 @@ class HomeController extends Controller
     /** Obteniene numero de peliculas alquileres y otros datos */
     public function getStats()
     {
-        $valor_final_gen = Genero::all()->count();
-        $valor_final_soc = Socio::all()->count();
-        $valor_final_alq = Alquiler::all()->count();
-        $valor_inicial_gen = 4;
-        $valor_inicial_soc = 20;
-        $valor_inicial_alq = 8;
-
         $mes = date('m');
+        $mes_anterior = date('m', strtotime('-1 month'));
+        $valor_final_soc = Socio::all()->whereBetween('created_at',['2022-'.$mes.'-01', '2022-'.$mes.'-31'])->count();
+        $valor_final_alq = Alquiler::all()->whereBetween('created_at',['2022-'.$mes.'-01', '2022-'.$mes.'-31'])->count();
+        $valor_inicial_soc = Socio::all()->whereBetween('created_at',['2022-'.$mes_anterior.'-01', '2022-'.$mes_anterior.'-31'])->count();
+        $valor_inicial_alq = Alquiler::all()->whereBetween('created_at',['2022-'.$mes_anterior.'-01', '2022-'.$mes_anterior.'-31'])->count();
+        //dd('Alquiler Final:'.$valor_final_alq, 'Alquiler Inicial: '.$valor_inicial_alq, 'Final Socio: '.$valor_final_soc, 'Inicial Socio: '.$valor_inicial_soc);
+       
        $stats = [
-        'num_alq_mes'    => Alquiler::all()->whereBetween('created_at', ['2022-'.$mes.'-01', '2022-'.$mes.'-31'])->count(),
-        'num_pel_mes'    => Pelicula::all()->whereBetween('created_at', ['2022-'.$mes.'-01', '2022-'.$mes.'-31'])->count(),
-		'num_soc_mes'    => Socio::all()->whereBetween('created_at', ['2022-'.$mes.'-01', '2022-'.$mes.'-31'])->count(),
-        'num_alq'   => Alquiler::all()->count(),
-        'num_pel'   => Pelicula::all()->count(),
-		'num_soc'   => Socio::all()->count(),
-        'ingresos_mes'=> DB::table('alquiler')->whereBetween('created_at', ['2022-'.$mes.'-01', '2022-'.$mes.'-31'])->sum('alq_valor'),
-        'alquileres' => $this->getLastRents(),
-        'tasa_crecimiento_gen'=>(($valor_final_gen-$valor_inicial_gen)/$valor_inicial_gen)*100,
-        'tasa_crecimiento_soc'=>(($valor_final_soc-$valor_inicial_soc)/$valor_inicial_soc)*100,
-        'tasa_crecimiento_alq'=>(($valor_final_alq-$valor_inicial_alq)/$valor_inicial_alq)*100
+        'num_alq_mes'           =>  $valor_final_alq,
+        'num_soc_mes'           =>  $valor_final_soc,
+        'num_pel_mes'           =>  Pelicula::all()->whereBetween('created_at', ['2022-'.$mes.'-01', '2022-'.$mes.'-31'])->count(),
+        'num_alq'               =>  Alquiler::all()->count(),
+        'num_pel'               =>  Pelicula::all()->count(),
+		'num_soc'               =>  Socio::all()->count(),
+        'ingresos_mes'          =>  DB::table('alquiler')->whereBetween('created_at', ['2022-'.$mes.'-01', '2022-'.$mes.'-31'])->sum('alq_valor'),
+        'alquileres'            =>  $this->getLastRents(),
+        'tasa_crecimiento_soc'  =>  round((($valor_final_soc-$valor_inicial_soc)/$valor_inicial_soc)*100,2),
+        'tasa_crecimiento_alq'  =>  round((($valor_final_alq-$valor_inicial_alq)/$valor_inicial_alq)*100,2)
        ];
        return $stats;
     }
@@ -94,8 +93,10 @@ class HomeController extends Controller
         $meses = ['01','02','03','04','05','06','07','08','09','10','11','12'];
         $socios_per_month = [];
         $spm = [];
+        $sumSocios = 0;
         foreach($meses as $mes){
-            array_push($socios_per_month, (Socio::all()->whereBetween('created_at', ['2022-'.$mes.'-01', '2022-'.$mes.'-31'])->count()));
+            $sumSocios += Socio::all()->whereBetween('created_at', ['2022-'.$mes.'-01', '2022-'.$mes.'-31'])->count();
+            array_push($socios_per_month, $sumSocios);
         }
         $spm['data'] = json_encode($socios_per_month);
         return $spm;
@@ -128,7 +129,7 @@ class HomeController extends Controller
     public function getRestingTime(){
        // $al = DB::table('alquiler')->select('id','pel_id',DB::raw("DATEDIFF(alq_fecha_hasta,alq_fecha_desde)AS Days"))->get();
         //$al = DB::table('alquiler')->join('socio','alquiler.soc_id','=','socio.id')->join('pelicula','alquiler.pel_id','=','pelicula.id')->select('socio.soc_nombre','pelicula.pel_nombre','alquiler.created_at',DB::raw("DATEDIFF(alq_fecha_hasta,alq_fecha_desde)AS Days"))->orderBy('Days','asc')->get();
-        $resting_time = DB::table('alquiler')->join('socio','alquiler.soc_id','=','socio.id')->join('pelicula','alquiler.pel_id','=','pelicula.id')->select('socio.soc_nombre','pelicula.pel_nombre','alquiler.created_at',DB::raw("DATEDIFF(alq_fecha_hasta,alq_fecha_desde)AS Days"))->orderBy('Days','asc')->paginate(6);
+        $resting_time = DB::table('alquiler')->join('socio','alquiler.soc_id','=','socio.id')->join('pelicula','alquiler.pel_id','=','pelicula.id')->select('socio.soc_nombre','pelicula.pel_nombre','alquiler.created_at',DB::raw("DATEDIFF(NOW(),alq_fecha_hasta)AS Days"))->orderBy('Days','asc')->paginate(6);
         //$resting_time['data'] = json_encode($al);
         //return $resting_time['data'];
         return $resting_time;

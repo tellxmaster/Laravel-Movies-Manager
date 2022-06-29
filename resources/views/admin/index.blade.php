@@ -110,9 +110,9 @@
             </p>
             <p class="ml-auto d-flex flex-column text-right">
               <span class="text-success">
-                <i class="fas fa-arrow-up"></i> {{$stats['tasa_crecimiento_gen']}}%
+                <i class="fas fa-arrow-up"></i>
               </span>
-              <span class="text-muted">Desde la semana pasada</span>
+              <span class="text-muted"></span>
             </p>
           </div>
           <!-- /.d-flex -->
@@ -227,7 +227,7 @@
             </div>
           </div>
           <div class="col-2">
-            <img width="105px" class="rounded" src="https://m.media-amazon.com/images/I/41H5ZQQN4RL._AC_SY580_.jpg" alt="">
+            <img width="105px" class="rounded" src="/resources/images/generic-movie.webp" alt="">
           </div>         
         </div>
       </div>
@@ -394,7 +394,7 @@
     labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre'],
     datasets: [
       {
-        label: 'Usuarios',
+        label: 'Socios',
         fill: false,
         borderWidth: 2,
         lineTension: 0,
@@ -428,7 +428,7 @@
       }],
       yAxes: [{
         ticks: {
-          stepSize: 2,
+          stepSize: 4,
           fontColor: '#000000'
         },
         gridLines: {
