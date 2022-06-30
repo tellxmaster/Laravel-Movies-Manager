@@ -317,8 +317,35 @@ return [
         ['header' => 'Reportes'],
         [
             'text'       => 'Generar Reporte',
-            'icon' => 'fas fa-file-video',
+            'icon' => 'ion ion-document',
             'url'        => '/reporte',
+            'submenu' => [
+                [
+                    'text' => 'Top 5 géneros por mes',
+                    'icon' => 'ion ion-android-star',
+                    'url'  => '/reporte-top',
+                ],
+                [
+                    'text' => 'Alquileres por día.',
+                    'url'  => '#',
+                    'icon' => 'ion ion-card'
+                ],
+                [
+                    'text' => 'Películas por género.',
+                    'icon' => 'ion ion-videocamera',
+                    'url'  => '#',
+                ],
+                [
+                    'text' => 'Ingresos mensuales.',
+                    'url'  => '#',
+                    'icon' => 'ion ion-cash'
+                ],
+                [
+                    'text' => 'Reporte por socio.',
+                    'url'  => '#',
+                    'icon' => 'ion ion-person-stalker'
+                ]
+             ]  
         ],
     ],
 

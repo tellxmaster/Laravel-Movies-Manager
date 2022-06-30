@@ -44,6 +44,7 @@ Route::get('/dashboard', [App\Http\Controllers\Admin\HomeController::class, 'ind
 	Route::view('actor', 'livewire.actors.index')->middleware('auth');
 	Route::view('sexo', 'livewire.sexos.index')->middleware('auth');
 	Route::view('user','profile.show')->middleware('auth');
+	Route::view('reporte-top','livewire.reporte-top.index')->middleware('auth');
 
 
 	/** Routes AdminLTE */
