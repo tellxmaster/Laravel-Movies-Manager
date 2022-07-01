@@ -45,7 +45,9 @@ Route::get('/dashboard', [App\Http\Controllers\Admin\HomeController::class, 'ind
 	Route::view('sexo', 'livewire.sexos.index')->middleware('auth');
 	Route::view('user','profile.show')->middleware('auth');
 	Route::view('reporte-top','livewire.reporte-top.index')->middleware('auth');
-
+	Route::get('reporte-top/pdf',[App\Http\Livewire\ReportTop::class,'pdf'])->middleware('auth');
+	Route::view('reporte-alquiler','livewire.reporte-alquiler.index')->middleware('auth');
+	Route::view('reporte-genero','livewire.reporte-genero.index')->middleware('auth');
 
 	/** Routes AdminLTE */
 	Route::get('/admin/login', [AuthController::class, 'getLogin'])->name('getLogin');

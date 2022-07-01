@@ -1,12 +1,12 @@
 @extends('adminlte::page')
 
-@section('title', 'Reporte Géneros')
+@section('title', 'Listado Actores')
 
 @section('content')
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-12">
-            @livewire('report-genero')
+            @livewire('report-alquiler')
         </div>     
     </div>   
 </div>

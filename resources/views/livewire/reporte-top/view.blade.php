@@ -15,7 +15,7 @@
    </div>
    <div class="row">
       <div class="col">
-         <select name="select" wire:model="opcion"  name="opcion" id="select" class="form-control">
+         <select wire:model="opcion"  name="opcion" id="select" class="form-control">
                <option value="1">-- Seleccione una Opcion </option>
             @foreach($meses as $num=>$nombre)
 				   <option value="{{$num}}">{{$nombre}}</option>
@@ -23,13 +23,13 @@
          </select>
       </div>
       <div class="col">
-         <button wire:click.prevent="getTopFive({{$opcion}})" class="btn btn-danger">Generar</button>
+            <button wire:click.prevent="getTopFive({{$opcion}})" class="btn btn-danger">Generar</button>
       </div>
       <div class="col">
-         <button class="btn btn-success"  style="float: right;">
+         <a href="/reporte-top/pdf" class="btn btn-success"  style="float: right;">
             <span><b>Descargar</b></span>
             <i class="ion-ios-cloud-download p-1"></i>
-         </button>
+         </a>
       </div>
    </div>
    <div class="row">
@@ -51,7 +51,7 @@
 	  		@foreach($top_generos as $gen_nombre=>$numeros)
 				<tr>
 					<td>{{ $loop->iteration }}</td> 
-					<td>{{ $gen_nombre }}</td>
+					<td>{{ $gen_nombre }} @if($loop->iteration == 1 && $numeros!=0) <i class="ion ion-trophy float-right h4" style="color: gold; font-size: 16px;"></i> @elseif($loop->iteration == 2 && $numeros!=0) <i class="ion ion-trophy float-right" style="color: silver; font-size: 16px;"></i>  @elseif($loop->iteration == 3 && $numeros!=0) <i class="ion ion-trophy float-right" style="color: #B87333; font-size: 16px;"></i> @endif</td>
 					<td>{{ $numeros }}</td>
 				</tr>
 			@endforeach

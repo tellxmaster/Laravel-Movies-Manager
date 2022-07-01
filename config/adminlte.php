@@ -327,13 +327,13 @@ return [
                 ],
                 [
                     'text' => 'Alquileres por día.',
-                    'url'  => '#',
+                    'url'  => '/reporte-alquiler',
                     'icon' => 'ion ion-card'
                 ],
                 [
                     'text' => 'Películas por género.',
                     'icon' => 'ion ion-videocamera',
-                    'url'  => '#',
+                    'url'  => '/reporte-genero',
                 ],
                 [
                     'text' => 'Ingresos mensuales.',
