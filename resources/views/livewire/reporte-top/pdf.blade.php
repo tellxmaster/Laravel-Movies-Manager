@@ -1,15 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+
+
 <body>
+   <style>
+      body{
+         font-family: 'Helvetica', 'Arial', sans-serif;
+      }
+   </style>
+   <div style="display: flex;">
+      <div>
+         <img class="logo" src="vendor/adminlte/dist/img/logo-small.png" width="100px" heigh="100px">
+      </div>
+      <div>
+         <h3>Cineflix</h3>
+      </div>
+   </div>
+    <p style="float: right;"><b>Fecha de Emisión: </b>{{now()}}</p>
     <h1>Top 5 Generos</h1>
     @if($lista)
-   <table class="table table-bordered">
+    <table class="table table-bordered">
       <thead>
          <tr class="bg-danger">
             <th scope="col">Nº</th>
@@ -21,12 +29,14 @@
 	  		@foreach($lista as $gen_nombre=>$numeros)
 				<tr>
 					<td>{{ $loop->iteration }}</td> 
-					<td>{{ $gen_nombre }}</td>
+					<td>{{ $gen_nombre }} </td>
 					<td>{{ $numeros }}</td>
 				</tr>
 			@endforeach
       </tbody>
    </table>
    @endif
+   
 </body>
 </html>
+

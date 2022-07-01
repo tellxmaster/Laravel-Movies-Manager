@@ -227,7 +227,7 @@
             </div>
           </div>
           <div class="col-2">
-            <img width="105px" class="rounded" src="/resources/images/generic-movie.webp" alt="">
+            <i class="ion ion-android-film" style="font-size: 8em;"></i>
           </div>         
         </div>
       </div>

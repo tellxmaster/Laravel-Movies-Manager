@@ -7,10 +7,11 @@ use App\Models\Genero;
 use App\Models\Pelicula;
 use App\Models\Alquiler;
 use DB;
+use PDF;
 
 class ReportTop extends Component
 {
-    public $opcion, $top_generos;
+    public $opcion, $top_generos, $m;
     public function render()
     {
         $meses=collect(
@@ -27,9 +28,17 @@ class ReportTop extends Component
 
     public function pdf()
     {
-        $lista = $this->top_generos;
-        //dd($generos, $meses);
-        return view('livewire.reporte-top.pdf',['lista' => $lista]);
+        $mes = $this->opcion;
+        $lista=$this->getTopFive($mes);
+        //$lista = $this->top_generos;
+        $peliculas = Pelicula::all();
+        $pdf = \PDF::loadView('livewire.reporte-top.pdf',compact('lista'));
+        return $pdf->stream('REPORTE-TOP-CINEFLIX'.date('Y-m-d').'.pdf');
+    }
+
+    public function getMes($mes){
+        $this->m;
+        return $mes;
     }
 
     private function resetInput()

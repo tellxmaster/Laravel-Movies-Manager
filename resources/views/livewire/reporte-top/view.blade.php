@@ -26,8 +26,8 @@
             <button wire:click.prevent="getTopFive({{$opcion}})" class="btn btn-danger">Generar</button>
       </div>
       <div class="col">
-         <a href="/reporte-top/pdf" class="btn btn-success"  style="float: right;">
-            <span><b>Descargar</b></span>
+         <a href="{{ route('descargarPDF')}}" class="btn btn-success"  style="float: right;">
+            <span><b>Exportar</b></span>
             <i class="ion-ios-cloud-download p-1"></i>
          </a>
       </div>
