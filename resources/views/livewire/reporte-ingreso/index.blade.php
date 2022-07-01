@@ -3,7 +3,7 @@
 @section('title', 'Listado Actores')
 
 @section('content_header')
-    <h1></h1>
+    <h1>Hola</h1>
 @stop
 
 @section('content')

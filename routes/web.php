@@ -48,6 +48,7 @@ Route::get('/dashboard', [App\Http\Controllers\Admin\HomeController::class, 'ind
 	Route::get('reporte-top/pdf',[App\Http\Livewire\ReportTop::class,'pdf'])->middleware('auth');
 	Route::view('reporte-alquiler','livewire.reporte-alquiler.index')->middleware('auth');
 	Route::view('reporte-genero','livewire.reporte-genero.index')->middleware('auth');
+	Route::view('reporte-ingreso','livewire.reporte-ingreso.index')->middleware('auth');
 	Route::get('/pdf',[App\Http\Livewire\ReportTop::class,'pdf'])->name('descargarPDF');
 
 	/** Routes AdminLTE */
