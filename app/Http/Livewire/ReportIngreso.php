@@ -8,6 +8,6 @@ class ReportIngreso extends Component
 {
     public function render()
     {
-        return view('livewire.report-ingreso');
+        return view('livewire.reporte-ingreso.view');
     }
 }

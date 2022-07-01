@@ -337,7 +337,7 @@ return [
                 ],
                 [
                     'text' => 'Ingresos mensuales.',
-                    'url'  => '#',
+                    'url'  => '/reporte-ingreso',
                     'icon' => 'ion ion-cash'
                 ],
                 [
