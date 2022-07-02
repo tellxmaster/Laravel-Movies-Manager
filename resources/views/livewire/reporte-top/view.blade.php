@@ -15,20 +15,20 @@
    </div>
    <div class="row">
       <div class="col">
-         <select wire:model="opcion"  name="opcion" id="select" class="form-control">
-               <option value="1">-- Seleccione una Opcion </option>
+         <select wire:model.lazy="opcion"  name="opcion" id="select" class="form-control">
+               <option value="01">-- Seleccione una Opcion </option>
             @foreach($meses as $num=>$nombre)
 				   <option value="{{$num}}">{{$nombre}}</option>
 			   @endforeach
          </select>
       </div>
       <div class="col">
-            <button wire:click.prevent="getTopFive({{$opcion}})" class="btn btn-danger">Generar</button>
+            <button wire:click.prevent="getTopFive({{$opcion}})" class="btn btn-danger @if(!$opcion) disabled @endif">Generar</button>
       </div>
       <div class="col">
-         <a href="{{ route('descargarPDF')}}" class="btn btn-success"  style="float: right;">
-            <span><b>Exportar</b></span>
-            <i class="ion-ios-cloud-download p-1"></i>
+         <a href="{{ route('descargarPDF',['mes' => $opcion])}}" target="_blank"  class="btn btn-success"  style="float: right;">
+            <span>Exportar</span>
+            <i class="ion-ios-upload-outline p-1"></i>
          </a>
       </div>
    </div>

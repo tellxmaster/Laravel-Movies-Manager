@@ -19,19 +19,22 @@ Para descargar el proyecto es necesario clonar el repositorio:
 git clone https://github.com/tellxmaster/peliculas.git
 ``````
 
-## 2. Reconstruir los paquetes de node
+## 2. Reconstruir las dependencias
+### + NodeJS
 Para esto debes abrir el proyecto con [VS Code](https://code.visualstudio.com/) o cualquier otro editor de codigo, debes abrir una terminal y ejecutar el comando: 
 `````` 
 npm install
 `````` 
-
+### + Composer
 Tambien es necesario reconstruir las dependencias de composer con:
 
 `````` 
 composer install
 `````` 
 
-y finalmente configurar generar el archivo .env
+### + Reconstruir el archivo .env
+
+Es necesario generar un archivo .env este puede ser generado copiando el contenido de .env.example o puedes descargar el [.env](https://drive.google.com/file/d/1uU2AZIn8Mz0u4ZpKnZkOmkoCZIVH6mnK/view?usp=sharing) y ponerlo en la carpeta raiz del proyecto.
 
 ## 3. Reconstruir la base de datos
 La base de datos esta diseñada en MySQL con la ayuda de [XAMPP](https://www.apachefriends.org/es/index.html) para reconstruir la BDD es necesario importar el script contenido en la ruta
