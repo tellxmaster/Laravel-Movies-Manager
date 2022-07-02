@@ -28,9 +28,16 @@ class ReportTop extends Component
 
     public function pdf()
     {
+        $meses=collect(
+            [
+                '01'=>'Enero','02'=>'Febrero','03'=>'Marzo','04'=>'Abril','05'=>'Mayo','06'=>'Junio',
+                '07'=>'Julio','08'=>'Agosto','09'=>'Septiembre','10'=>'Octubre','11'=>'Noviembre','12'=>'Diciembre',
+            ]
+        );
         $mes = $_GET['mes'];
+        $mes_lbl=$meses[$mes];
         $lista=$this->getTopFive($mes);
-        $pdf = PDF::loadView('livewire.reporte-top.pdf',compact('lista'));
+        $pdf = PDF::loadView('livewire.reporte-top.pdf',compact('lista','mes_lbl'));
         return $pdf->stream('REPORTE-TOP-CINEFLIX'.date('Y-m-d').'.pdf');
     }
 
