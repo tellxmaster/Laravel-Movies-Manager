@@ -1,3 +1,4 @@
+
 @extends('adminlte::page')
 
 @section('title', 'Listado Actores')
@@ -10,6 +11,7 @@
         </div>     
     </div>   
 </div>
+
 @stop
 @section('css')
 <!-- Ionicons -->
@@ -31,7 +33,3 @@
 <!-- admin_custom_css -->
 <link rel="stylesheet" href="/css/admin_custom.css">
 @stop
-
-@section('js')
-
-@endsection

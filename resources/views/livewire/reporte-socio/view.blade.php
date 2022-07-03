@@ -29,6 +29,7 @@
       </div>
       <div class="col">
             <button wire:click.prevent="getSocio({{$anio}})" class="btn btn-danger">Generar</button>
+            <a class="btn btn-warning" onclick="getSoc()" wire.model="ss">Texto</a>  
       </div>
       <div class="col">
          <a href="/reporte-top/pdf" class="btn btn-success"  style="float: right;">
@@ -62,7 +63,25 @@
      @endforeach
      </tbody>
    </table>
+   
    @endif
 </div>
 
 </div>
+
+<div class="position-relative mb-4">
+    <canvas class="chart" id="line-chart-users" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+</div>
+
+@section('js')
+<script>
+   
+    function getSoc() {   
+      console.log({{$ss['data']}});
+   }
+</script>
+
+@stop
+
+
+

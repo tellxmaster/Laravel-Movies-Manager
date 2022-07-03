@@ -8,7 +8,7 @@ use Livewire\Component;
 
 class ReportSocio extends Component
 {
-    public $anio,$spm,$apm;
+    public $anio,$spm,$apm,$ss;
 
     public function render()
     {
@@ -18,7 +18,8 @@ class ReportSocio extends Component
                 '06'=>'Junio','07'=>'Julio','08'=>'Agosto','09'=>'Septiembre','10'=>'Octubre','11'=>'Noviembre','12'=>'Diciembre',
             ]
         );
-       
+        
+        
         return view('livewire.reporte-socio.view',['meses'=>$meses]);
     }
     public function getSocio($anio)
@@ -33,6 +34,7 @@ class ReportSocio extends Component
         $spm = [];
         $sumSocios = 0;
         $apm=[];
+        
         foreach($meses as $mes=>$label){
 
             $sumSocios = Socio::all()->whereBetween('created_at', [$anio.'-'.$mes.'-01', $anio.'-'.$mes.'-31'])->count();
@@ -40,9 +42,12 @@ class ReportSocio extends Component
             $this->getTopSocio($anio,$mes);
             array_push($apm,$this->getTopSocio($anio,$mes));
         }
-        //dd($apm);
-        $this->apm=$apm;
+        
+        $this->apm=$apm; 
         $this->spm=$socios_per_month;
+        $this->ss['data']=json_encode($socios_per_month);
+        //dd($this->socpm['data']);
+        //return $socpm;
     }
     public function getTopSocio($anio,$mes)
     {
@@ -67,6 +72,7 @@ class ReportSocio extends Component
 
        return $top_soc;
     }
+ 
     
 
 }
