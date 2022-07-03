@@ -29,11 +29,10 @@
       </div>
       <div class="col">
             <button wire:click.prevent="getSocio({{$anio}})" class="btn btn-danger">Generar</button>
-            <a class="btn btn-warning" onclick="getSoc()" wire.model="ss">Texto</a>  
       </div>
       <div class="col">
-         <a href="/reporte-top/pdf" class="btn btn-success"  style="float: right;">
-            <span><b>Descargar</b></span>
+         <a href="/reporte-top/pdf"  id="graph" class="btn btn-success"  style="float: right;">
+            <span><b>Exportar</b></span>
             <i class="ion-ios-cloud-download p-1"></i>
          </a>
       </div>
@@ -63,7 +62,12 @@
      @endforeach
      </tbody>
    </table>
-   
+   <script>
+      let valores = [];
+      @foreach($meses as $num=>$nombre)
+        valores.push({{$spm[$loop->iteration-1]}});
+      @endforeach
+   </script>
    @endif
 </div>
 
@@ -76,11 +80,7 @@
 @section('js')
 <script>
    
-    function getSoc() {   
-      console.log({{$ss['data']}});
-   }
 </script>
-
 @stop
 
 

@@ -35,6 +35,7 @@
 								<th>Pelicula</th>
 								<th>Costo</th>
 								<th>Fecha Estreno</th>
+								<th>Imagen</th>
 								<td>Opciones</td>
 							</tr>
 						</thead>
@@ -48,6 +49,7 @@
 								<td>{{ $row->pel_nombre }}</td>
 								<td>{{ $row->pel_costo }}</td>
 								<td>{{ $row->pel_fecha_estreno }}</td>
+								<td><img src="storage/uploads/logo-small.png"></td>
 								<td width="90">
 								<div class="btn-group">
 									<button type="button" class="btn btn-danger btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

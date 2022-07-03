@@ -14,7 +14,7 @@ class Peliculas extends Component
     use WithPagination;
 
 	protected $paginationTheme = 'bootstrap';
-    public $selected_id, $keyWord, $gen_id, $dir_id, $for_id, $pel_nombre, $pel_costo, $pel_fecha_estreno;
+    public $selected_id, $keyWord, $gen_id, $dir_id, $for_id, $pel_nombre, $pel_costo, $pel_fecha_estreno, $imagen;
     public $updateMode = false;
 
     public function render()
@@ -31,6 +31,7 @@ class Peliculas extends Component
 						->orWhere('pel_nombre', 'LIKE', $keyWord)
 						->orWhere('pel_costo', 'LIKE', $keyWord)
 						->orWhere('pel_fecha_estreno', 'LIKE', $keyWord)
+                        ->orWhere('imagen', 'LIKE', $keyWord)
 						->paginate(10),
         ]);
     }
@@ -49,6 +50,7 @@ class Peliculas extends Component
 		$this->pel_nombre = null;
 		$this->pel_costo = null;
 		$this->pel_fecha_estreno = null;
+        $this->imagen = null;
     }
 
     public function store()
@@ -64,7 +66,8 @@ class Peliculas extends Component
 			'for_id' => $this-> for_id,
 			'pel_nombre' => $this-> pel_nombre,
 			'pel_costo' => $this-> pel_costo,
-			'pel_fecha_estreno' => $this-> pel_fecha_estreno
+			'pel_fecha_estreno' => $this-> pel_fecha_estreno,
+            'imagen' => $this-> imagen
         ]);
         
         $this->resetInput();
@@ -83,7 +86,8 @@ class Peliculas extends Component
 		$this->pel_nombre = $record-> pel_nombre;
 		$this->pel_costo = $record-> pel_costo;
 		$this->pel_fecha_estreno = $record-> pel_fecha_estreno;
-		
+		$this->imagen = $record-> imagen;
+
         $this->updateMode = true;
     }
 
@@ -102,7 +106,8 @@ class Peliculas extends Component
 			'for_id' => $this-> for_id,
 			'pel_nombre' => $this-> pel_nombre,
 			'pel_costo' => $this-> pel_costo,
-			'pel_fecha_estreno' => $this-> pel_fecha_estreno
+			'pel_fecha_estreno' => $this-> pel_fecha_estreno,
+            'imagen' => $this-> imagen
             ]);
 
             $this->resetInput();

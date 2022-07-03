@@ -10,10 +10,6 @@
             </div>
            <div class="modal-body">
 				<form>
-            <!-- <div class="form-group">
-                <label for="gen_id"></label>
-                <input wire:model="gen_id" type="text" class="form-control" id="gen_id" placeholder="Gen Id">@error('gen_id') <span class="error text-danger">{{ $message }}</span> @enderror
-            </div> -->
             <div class="form-group">
                 <label for="gen_id"></label>
                 <select wire:model="gen_id" name="gen_id" id="gen_id" class="form-control">
@@ -56,6 +52,10 @@
             <div class="form-group">
                 <label for="pel_fecha_estreno"></label>
                 <input wire:model="pel_fecha_estreno" type="date" class="form-control" id="pel_fecha_estreno" placeholder="Fecha Estreno">@error('pel_fecha_estreno') <span class="error text-danger">{{ $message }}</span> @enderror
+            </div>
+            <div class="form-group">
+                <label for="imagen"></label>
+                <input wire:model="imagen" type="file" class="form-control" id="imagen" placeholder="Imagen"  accept=".jpg,.png">@error('imagen') <span class="error text-danger">{{ $message }}</span> @enderror
             </div>
 
                 </form>

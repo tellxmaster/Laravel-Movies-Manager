@@ -13,7 +13,7 @@ class Pelicula extends Model
 
     protected $table = 'pelicula';
 
-    protected $fillable = ['gen_id','dir_id','for_id','pel_nombre','pel_costo','pel_fecha_estreno'];
+    protected $fillable = ['gen_id','dir_id','for_id','pel_nombre','pel_costo','pel_fecha_estreno','imagen'];
 	
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
