@@ -338,11 +338,11 @@ return [
                 [
                     'text' => 'Ingresos mensuales.',
                     'url'  => '/reporte-ingreso',
-                    'icon' => 'ion ion-cash'
+                    'icon' => 'ion ion-social-usd'
                 ],
                 [
                     'text' => 'Reporte por socio.',
-                    'url'  => '#',
+                    'url'  => '/reporte-socio',
                     'icon' => 'ion ion-person-stalker'
                 ]
              ]  
