@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\Genero;
 use App\Models\Pelicula;
+use Barryvdh\DomPDF\Facade as PDF;
 use App\Models\Alquiler;
 use DB;
 
@@ -15,6 +16,17 @@ class ReportGenero extends Component
     {
         $generos = Genero::pluck('gen_nombre','id');
         return view('livewire.reporte-genero.view',['generos'=>$generos]);
+    }
+
+    
+    public function pdf()
+    {
+        $genero = $_GET['genero'];
+        $genero_lbl = Genero::select('gen_nombre')->where('id',$genero)->first()->gen_nombre;
+        $lista=$this->filterByGender($genero);
+        $total_ing = $this->sum_gen;
+        $pdf = PDF::loadView('livewire.reporte-genero.pdf',compact('lista','genero_lbl','total_ing'));
+        return $pdf->stream('REPORTE-GENERO-CINEFLIX'.date('Y-m-d').'.pdf');
     }
 
     public function filterByGender($genero){
@@ -33,7 +45,7 @@ class ReportGenero extends Component
         }
 
         $this->sum_gen = $suma_tot;
-        $this->list_generos = $pel->toArray();
+        $listado_pel = $this->list_generos = $pel->toArray();
         //dd($this->list_generos, $this->sum_gen);
         return $listado_pel;
         

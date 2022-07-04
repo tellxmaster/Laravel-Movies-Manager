@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Pelicula;
+use Barryvdh\DomPDF\Facade as PDF;
 use App\Models\Alquiler;
 
 class ReportAlquiler extends Component
@@ -13,6 +14,17 @@ class ReportAlquiler extends Component
     {   
         $fecha = '%'.$this->fecha .'%';
         return view('livewire.reporte-alquiler.view');
+    }
+
+
+    public function pdf()
+    {
+        $fecha = $_GET['fecha'];
+        //$mes_lbl=$meses[$mes];
+        $lista=$this->getAlquilers($fecha);
+        $total_ing = $this->total_ing;
+        $pdf = PDF::loadView('livewire.reporte-alquiler.pdf',compact('lista','fecha','total_ing'));
+        return $pdf->stream('REPORTE-ALQUILER-CINEFLIX'.date('Y-m-d').'.pdf');
     }
 
     public function getAlquilers($fecha){

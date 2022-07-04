@@ -50,7 +50,9 @@ Route::get('/dashboard', [App\Http\Controllers\Admin\HomeController::class, 'ind
 	Route::view('reporte-genero','livewire.reporte-genero.index')->middleware('auth');
 	Route::view('reporte-ingreso','livewire.reporte-ingreso.index')->middleware('auth');
 	Route::view('reporte-socio','livewire.reporte-socio.index')->middleware('auth');
-	Route::get('/pdf',[App\Http\Livewire\ReportTop::class,'pdf'])->name('descargarPDF');
+	Route::get('/pdf-top',[App\Http\Livewire\ReportTop::class,'pdf'])->name('descargarPDF-Top');
+	Route::get('/pdf-alq',[App\Http\Livewire\ReportAlquiler::class,'pdf'])->name('descargarPDF-Alq');
+	Route::get('/pdf-gen',[App\Http\Livewire\ReportGenero::class,'pdf'])->name('descargarPDF-Gen');
 
 	/** Routes AdminLTE */
 	Route::get('/admin/login', [AuthController::class, 'getLogin'])->name('getLogin');

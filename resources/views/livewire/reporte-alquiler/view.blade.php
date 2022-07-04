@@ -21,9 +21,9 @@
             <button wire:click.prevent="getAlquilers('{{$fecha}}')" class="btn btn-danger">Generar</button>
       </div>
       <div class="col">
-         <a href="/reporte-top/pdf" class="btn btn-success"  style="float: right;">
-            <span><b>Descargar</b></span>
-            <i class="ion-ios-cloud-download p-1"></i>
+         <a href="{{ route('descargarPDF-Alq',['fecha' => $fecha])}}" target="_blank"  class="btn btn-success"  style="float: right;">
+            <span>Exportar</span>
+            <i class="ion-ios-upload-outline p-1"></i>
          </a>
       </div>
    </div>

@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Listado Actores')
+@section('title', 'Reporte Alquileres')
 
 @section('content')
 <div class="container-fluid">

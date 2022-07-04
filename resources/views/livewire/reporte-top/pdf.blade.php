@@ -10,7 +10,7 @@
    <title>PDF</title>
 </head>
 
-<body>
+<body style="background-color: white;">
    <div class="container">
       <div style="display: flex;">
          <div class="col">

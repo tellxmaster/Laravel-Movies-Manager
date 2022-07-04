@@ -67,11 +67,11 @@
    <div class="col-6">
       <canvas id="myChart" style="min-height: 250px; height: 350px; max-height: 350px; max-width: 100%; min-width: 100%;"></canvas>
    </div>
-   <script wire:poll.750ms>
+   <script>
       let valores = {{Js::from($spm)}};
-      console.log(valores[0]);
-      const ctx = document.getElementById('myChart').getContext('2d');
-      const myChart = new Chart(ctx, {
+      //console.log(valores[0]);
+      var ctx = document.getElementById('myChart').getContext('2d');
+      var myChart = new Chart(ctx, {
          type: 'line',
          data: {
             labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
@@ -98,7 +98,10 @@
             }]
          },
          options: {
-            maintainAspectRatio: false,
+            responsive: true,
+            legend: {
+               display: false,
+            },
             scales: {
                   y: {
                      beginAtZero: true
