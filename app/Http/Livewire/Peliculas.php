@@ -4,14 +4,18 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\WithFileUploads;
 use App\Models\Pelicula;
 use App\Models\Genero;
 use App\Models\Director;
 use App\Models\Formato;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class Peliculas extends Component
 {
     use WithPagination;
+    use WithFileUploads;
 
 	protected $paginationTheme = 'bootstrap';
     public $selected_id, $keyWord, $gen_id, $dir_id, $for_id, $pel_nombre, $pel_costo, $pel_fecha_estreno, $imagen;
@@ -53,11 +57,12 @@ class Peliculas extends Component
         $this->imagen = null;
     }
 
-    public function store()
+    public function store(Request $request)
     {
         $this->validate([
 		'pel_nombre' => 'required',
-		'pel_costo' => 'required',
+		'pel_costo'  => 'required',
+        'imagen'     => 'image'
         ]);
 
         Pelicula::create([ 
@@ -67,7 +72,7 @@ class Peliculas extends Component
 			'pel_nombre' => $this-> pel_nombre,
 			'pel_costo' => $this-> pel_costo,
 			'pel_fecha_estreno' => $this-> pel_fecha_estreno,
-            'imagen' => $this-> imagen
+            'imagen' => $this->imagen->storeAs('public/img/movies/',Str::uuid(),'public_uploads')
         ]);
         
         $this->resetInput();

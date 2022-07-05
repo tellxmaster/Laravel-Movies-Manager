@@ -3,7 +3,7 @@
 namespace App\Http\Livewire;
 use App\Models\Socio;
 use App\Models\Alquiler;
-
+use Barryvdh\DomPDF\Facade as PDF;
 use Livewire\Component;
 
 class ReportSocio extends Component
@@ -22,6 +22,23 @@ class ReportSocio extends Component
         
         return view('livewire.reporte-socio.view',['meses'=>$meses]);
     }
+
+    public function pdf()
+    {
+        $meses=collect(
+            [
+                '01'=>'Enero','02'=>'Febrero','03'=>'Marzo','04'=>'Abril','05'=>'Mayo',
+                '06'=>'Junio','07'=>'Julio','08'=>'Agosto','09'=>'Septiembre','10'=>'Octubre','11'=>'Noviembre','12'=>'Diciembre',
+            ]
+        );
+        $anio = $_GET['anio'];
+        $lista=$this->getSocio($anio);
+        $apm = $this->apm; 
+        $spm = $this->spm;
+        $pdf = PDF::loadView('livewire.reporte-socio.pdf',compact('spm','apm','anio','meses'));
+        return $pdf->stream('REPORTE-SOCIO-CINEFLIX'.date('Y-m-d').'.pdf');
+    }
+
     public function getSocio($anio)
     {   
         $meses=collect(
@@ -47,6 +64,7 @@ class ReportSocio extends Component
         $this->spm=$socios_per_month;
 
     }
+
     public function getTopSocio($anio,$mes)
     {
         $socios=Socio::all();

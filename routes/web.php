@@ -53,6 +53,7 @@ Route::get('/dashboard', [App\Http\Controllers\Admin\HomeController::class, 'ind
 	Route::get('/pdf-top',[App\Http\Livewire\ReportTop::class,'pdf'])->name('descargarPDF-Top');
 	Route::get('/pdf-alq',[App\Http\Livewire\ReportAlquiler::class,'pdf'])->name('descargarPDF-Alq');
 	Route::get('/pdf-gen',[App\Http\Livewire\ReportGenero::class,'pdf'])->name('descargarPDF-Gen');
+	Route::get('/pdf-soc',[App\Http\Livewire\ReportSocio::class,'pdf'])->name('descargarPDF-Soc');
 
 	/** Routes AdminLTE */
 	Route::get('/admin/login', [AuthController::class, 'getLogin'])->name('getLogin');

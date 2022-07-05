@@ -31,9 +31,9 @@
             <button wire:click.prevent="getSocio({{$anio}})" class="btn btn-danger">Generar</button>
       </div>
       <div class="col">
-         <a href="/reporte-top/pdf"  id="graph" class="btn btn-success"  style="float: right;">
-            <span><b>Exportar</b></span>
-            <i class="ion-ios-cloud-download p-1"></i>
+         <a href="{{ route('descargarPDF-Soc',['anio' => $anio])}}" target="_blank"  class="btn btn-success"  style="float: right;">
+            <span>Exportar</span>
+            <i class="ion-ios-upload-outline p-1"></i>
          </a>
       </div>
    </div>
@@ -67,49 +67,66 @@
    <div class="col-6">
       <canvas id="myChart" style="min-height: 250px; height: 350px; max-height: 350px; max-width: 100%; min-width: 100%;"></canvas>
    </div>
+   <div>
+      <p style="border: 2px 2px solid;" id="image-chart"></p>
+   </div>
    <script>
-      let valores = {{Js::from($spm)}};
-      //console.log(valores[0]);
-      var ctx = document.getElementById('myChart').getContext('2d');
-      var myChart = new Chart(ctx, {
-         type: 'line',
-         data: {
-            labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
-            datasets: [{
-                  label: 'Socios',
-                  data: valores,
-                  backgroundColor: [
-                     'rgba(255, 99, 132, 0.2)',
-                     'rgba(54, 162, 235, 0.2)',
-                     'rgba(255, 206, 86, 0.2)',
-                     'rgba(75, 192, 192, 0.2)',
-                     'rgba(153, 102, 255, 0.2)',
-                     'rgba(255, 159, 64, 0.2)'
-                  ],
-                  borderColor: [
-                     'rgba(255, 99, 132, 1)',
-                     'rgba(54, 162, 235, 1)',
-                     'rgba(255, 206, 86, 1)',
-                     'rgba(75, 192, 192, 1)',
-                     'rgba(153, 102, 255, 1)',
-                     'rgba(255, 159, 64, 1)'
-                  ],
-                  borderWidth: 1
-            }]
-         },
-         options: {
-            responsive: true,
-            legend: {
-               display: false,
-            },
-            scales: {
-                  y: {
-                     beginAtZero: true
-                  }
-            }
-         }
-      });
-      </script>
+                let valores = {{Js::from($spm)}};
+                //console.log(valores[0]);
+                
+                function done(){
+                    let image = myChart.toBase64Image('image/png', 1);
+                    console.log(image);
+                    let para = document.createElement("p");
+                    para.innerHTML = `<img id='base64image' src="${image}" />`
+                    document.getElementById("image-chart").appendChild(para);
+                }
+
+                var ctx = document.getElementById('myChart').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+                        datasets: [{
+                            label: 'Socios',
+                            data: valores,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        bezierCurve : false,
+                        animation: {
+                            onComplete: done
+                        },
+                        legend: {
+                        display: false,
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+
+                </script>
    @endif
 </div>
 

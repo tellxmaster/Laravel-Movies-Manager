@@ -99,7 +99,7 @@
         <div class="card-header border-0">
           <div class="d-flex justify-content-between">
             <h3 class="card-title">Géneros disponibles en el Inventario</h3>
-            <a href="javascript:void(0);" class="btn btn-danger">Generar Reporte</a>
+            <a href="/reporte-genero" class="btn btn-danger">Generar Reporte</a>
           </div>
         </div>
         <div class="card-body">
@@ -170,7 +170,7 @@
         <div class="card-header border-0">
           <div class="d-flex justify-content-between">
             <h3 class="card-title">Socios Registrados</h3>
-            <a href="javascript:void(0);" class="btn btn-danger">Generar Reporte</a>
+            <a href="/reporte-socio" class="btn btn-danger">Generar Reporte</a>
           </div>
         </div>
         <div class="card-body">
