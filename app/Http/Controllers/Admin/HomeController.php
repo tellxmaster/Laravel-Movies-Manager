@@ -64,10 +64,10 @@ class HomeController extends Controller
         $mes = date('m');
         $mes_anterior = date('m', strtotime('-1 month'));
         $valor_final_soc = Socio::all()->whereBetween('created_at',['2022-'.$mes.'-01', '2022-'.$mes.'-31'])->count();
-        $valor_final_alq = Alquiler::all()->whereBetween('created_at',['2022-'.$mes.'-01', '2022-'.$mes.'-31'])->count();
+        $valor_final_alq = Alquiler::all()->whereBetween('alq_fecha_desde',['2022-'.$mes.'-01', '2022-'.$mes.'-31'])->count();
         $valor_inicial_soc = Socio::all()->whereBetween('created_at',['2022-'.$mes_anterior.'-01', '2022-'.$mes_anterior.'-31'])->count();
-        $valor_inicial_alq = Alquiler::all()->whereBetween('created_at',['2022-'.$mes_anterior.'-01', '2022-'.$mes_anterior.'-31'])->count();
-        //dd('Alquiler Final:'.$valor_final_alq, 'Alquiler Inicial: '.$valor_inicial_alq, 'Final Socio: '.$valor_final_soc, 'Inicial Socio: '.$valor_inicial_soc);
+        $valor_inicial_alq = Alquiler::all()->whereBetween('alq_fecha_desde',['2022-'.$mes_anterior.'-01', '2022-'.$mes_anterior.'-31'])->count();
+        //dd('Alquiler Final:'.$valor_final_alq, 'Alquiler Inicial: '.$valor_inicial_alq, 'Final Socio: '.$valor_final_soc, 'Inicial Socio: '.$valor_inicial_soc, 'fechas: 2022-'.$mes_anterior.'-01', '2022-'.$mes_anterior.'-31');
        
        $stats = [
         'num_alq_mes'           =>  $valor_final_alq,

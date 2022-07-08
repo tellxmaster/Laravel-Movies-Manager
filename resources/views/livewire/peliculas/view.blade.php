@@ -49,7 +49,7 @@
 								<td>{{ $row->pel_nombre }}</td>
 								<td>{{ $row->pel_costo }}</td>
 								<td>{{ $row->pel_fecha_estreno }}</td>
-								<td>{{$row->imagen}}</td>
+								<td><img src="{{$row->imagen}}" width="100px"></td>
 								<td width="90">
 								<div class="btn-group">
 									<button type="button" class="btn btn-danger btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

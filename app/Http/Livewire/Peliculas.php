@@ -10,6 +10,7 @@ use App\Models\Genero;
 use App\Models\Director;
 use App\Models\Formato;
 use Illuminate\Http\Request;
+use File;
 use Illuminate\Support\Str;
 
 class Peliculas extends Component
@@ -72,7 +73,7 @@ class Peliculas extends Component
 			'pel_nombre' => $this-> pel_nombre,
 			'pel_costo' => $this-> pel_costo,
 			'pel_fecha_estreno' => $this-> pel_fecha_estreno,
-            'imagen' => $this->imagen->storeAs('public/img/movies/',Str::uuid(),'public_uploads')
+            'imagen' => $this->imagen->storeAs('public/img/movies',Str::uuid(),'public_uploads')
         ]);
         
         $this->resetInput();
@@ -105,6 +106,7 @@ class Peliculas extends Component
 
         if ($this->selected_id) {
 			$record = Pelicula::find($this->selected_id);
+            File::delete(public_path($record->imagen)); 
             $record->update([ 
 			'gen_id' => $this-> gen_id,
 			'dir_id' => $this-> dir_id,
@@ -112,7 +114,7 @@ class Peliculas extends Component
 			'pel_nombre' => $this-> pel_nombre,
 			'pel_costo' => $this-> pel_costo,
 			'pel_fecha_estreno' => $this-> pel_fecha_estreno,
-            'imagen' => $this-> imagen
+            'imagen' => $this->imagen->storeAs('public/img/movies',Str::uuid(),'public_uploads')
             ]);
 
             $this->resetInput();
