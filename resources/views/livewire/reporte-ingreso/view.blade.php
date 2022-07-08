@@ -15,22 +15,23 @@
    </div>
    <div class="row">
       <div class="col">
-      <select wire:model="opcion"  name="opcion" id="select" class="form-control">
-               <option value="1">-- Seleccione una Opcion </option>
-            
+      <select wire:model="filtro_mes"  name="opcion" id="select" class="form-control">
+               <option value="1">-- Seleccione una mes </option>
+               @foreach($meses as $num=>$mes)
+                  <option value="{{$num}}"> {{$mes}} {{$num}} </option>
+               @endforeach
          </select>
       </div>
       <div class="col">
-            <button wire:click.prevent="" class="btn btn-danger">Generar</button>
-      </div>
-      <div class="col">
-      <select wire:model="opcion"  name="opcion" id="select" class="form-control">
-               <option value="1">-- Seleccione una Opcion </option>
-            
+      <select wire:model="filtro_gen"  name="opcion" id="select" class="form-control">
+               <option value="1">-- Seleccione un Genero</option>
+               @foreach($generos as $id=>$genero)
+                  <option value="{{$id}}"> {{$genero}} </option>
+               @endforeach
          </select>
       </div>
       <div class="col">
-            <button wire:click.prevent="" class="btn btn-danger">Generar</button>
+            <button wire:click.prevent="getPelIncome({{$filtro_mes}}, {{$filtro_gen}})" class="btn btn-danger">Generar</button>
       </div>
       <div class="col">
          <a href="/reporte-top/pdf" class="btn btn-success"  style="float: right;">
@@ -45,7 +46,7 @@
       </div>
    </div>
 <div class="row">
-    
+@if($list_pel)
    <table class="table table-bordered">
       <thead>
          <tr class="bg-danger">
@@ -56,10 +57,17 @@
          </tr>
       </thead>
      <tbody>
-    
+           @foreach($list_pel as $row)
+               <tr>
+                  <td class="text-center">{{$row['num_alq']}}</td>
+                  <td class="text-center">{{$row['pel_nombre']}}</td>
+                  <td class="text-center">{{number_format($row['pel_precio'],2,'.',',')}}$</td>
+                  <td class="text-center text-success"><b>{{number_format($row['total'],2,'.',',')}}$</b></td>
+               </tr>
+           @endforeach
      </tbody>
    </table>
-
+@endif
 </div>
 
 </div>

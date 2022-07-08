@@ -59,7 +59,6 @@ class ReportTop extends Component
         }
         $this->resetInput();
         $this->top_generos = $top;
-
         return $top;
     }
 }
