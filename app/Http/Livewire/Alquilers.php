@@ -118,4 +118,8 @@ class Alquilers extends Component
             $record->delete();
         }
     }
+
+    public function getPelCost($pel_id){
+       $this->alq_valor = Pelicula::select('pel_costo')->where('id',$pel_id)->first()->pel_costo;
+    }
 }

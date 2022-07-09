@@ -13,7 +13,7 @@
             <div class="form-group">
                 <label for="soc_id">Socio</label>
                 <select wire:model="soc_id" name="soc_id" id="soc_id" class="form-control">
-                    <option value="0" select>Seleccione una opción</option>
+                    <option value="1" select>Seleccione una opción</option>
                     @foreach($socios as $soc_id=>$soc_nombre)
 							<option value="{{$soc_id}}">{{$soc_nombre}}</option>
 					@endforeach
@@ -22,9 +22,9 @@
             <div class="form-group">
                 <label for="pel_id">Pelicula</label>
                 <select wire:model="pel_id" name="pel_id" id="pel_id" class="form-control">
-                    <option value="0" select>Seleccione una opción</option>
+                    <option value="1" select>Seleccione una opción</option>
                     @foreach($peliculas as $pel_id=>$pel_nombre)
-							<option value="{{$pel_id}}">{{$pel_nombre}}</option>
+							<option value="{{$pel_id}}" wire:click.prevent="getPelCost({{$pel_id}})">{{$pel_nombre}}</option>
 					@endforeach
                 </select>@error('pel_id') <span class="error text-danger">{{ $message }}</span> @enderror
             </div>
@@ -38,7 +38,7 @@
             </div>
             <div class="form-group">
                 <label for="alq_valor"></label>
-                <input wire:model="alq_valor" type="text" class="form-control" id="alq_valor" placeholder="Valor">@error('alq_valor') <span class="error text-danger">{{ $message }}</span> @enderror
+                <input wire:model="alq_valor" type="text" class="form-control" id="alq_valor" placeholder="Valor">@if($alq_valor) {{$alq_valor}} @endif @error('alq_valor') <span class="error text-danger">{{ $message }}</span> @enderror
             </div>
             <div class="form-group">
                 <label for="alq_fecha_entrega"></label>
@@ -49,7 +49,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary close-btn" data-dismiss="modal">Cerrar</button>
-                <button type="button" wire:click.prevent="store()" class="btn btn-primary close-modal">Guardar</button>
+                <button type="button" wire:click.prevent="store()" class="btn btn-danger close-modal">Guardar</button>
             </div>
         </div>
     </div>
