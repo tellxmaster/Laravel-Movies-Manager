@@ -72,11 +72,11 @@ class ReportSocio extends Component
 
         foreach($socios as $socio)
         {
-            $numSocio[$socio->id]=Alquiler::select('soc_id')->whereBetween('created_at', [$anio.'-'.$mes.'-01', $anio.'-'.$mes.'-31'])->where('soc_id',$socio->id)->count();
+            $numSocio[$socio->id]=Alquiler::select('soc_id')->whereBetween('alq_fecha_desde', [$anio.'-'.$mes.'-01', $anio.'-'.$mes.'-31'])->where('soc_id',$socio->id)->count();
             //array_push($numSocio,$topSoc);
         }
         arsort($numSocio);
-        
+        //dd($numSocio);
         
         if($numSocio[array_key_first($numSocio)]==0)
         {

@@ -107,7 +107,7 @@ class HomeController extends Controller
         $alquiler_per_month = [];
         $apm = [];
         foreach($meses as $mes){
-            array_push($alquiler_per_month, (Alquiler::all()->whereBetween('created_at', ['2022-'.$mes.'-01', '2022-'.$mes.'-31'])->count()));
+            array_push($alquiler_per_month, (Alquiler::all()->whereBetween('alq_fecha_desde', ['2022-'.$mes.'-01', '2022-'.$mes.'-31'])->count()));
         }
         $apm['data'] = json_encode($alquiler_per_month);
         return $apm;

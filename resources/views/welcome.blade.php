@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+@extends('layouts.app')
 @section('title', __('Bienvenido'))
 @section('content')
 <div class="container-fluid">

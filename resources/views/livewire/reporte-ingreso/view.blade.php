@@ -18,7 +18,7 @@
       <select wire:model="filtro_mes"  name="opcion" id="select" class="form-control">
                <option value="1">-- Seleccione una mes </option>
                @foreach($meses as $num=>$mes)
-                  <option value="{{$num}}"> {{$mes}} {{$num}} </option>
+                  <option value="{{$num}}"> {{$mes}} </option>
                @endforeach
          </select>
       </div>
@@ -50,10 +50,10 @@
    <table class="table table-bordered">
       <thead>
          <tr class="bg-danger">
-            <th scope="col" class="text-center">Numero Pelicula</th>
+            <th scope="col" class="text-center"># Alquileres Pelicula</th>
             <th scope="col" class="text-center">Nombre Película</th>
             <th scope="col" class="text-center">Precio</th>
-            <th scope="col" class="text-center">Total</th>
+            <th scope="col" class="text-center">Ingreso Generado</th>
          </tr>
       </thead>
      <tbody>

@@ -295,7 +295,7 @@
 								<td>{{ $row->pel_nombre }}</td>
 								<td class="text-center">
                 @if ($row->Days<=0)
-                  <span class="badge badge-danger">{{ $row->Days }} días  <i class="fas fa-skull"></i></span></td>
+                  <span class="badge badge-danger"><i class="fas fa-skull"></i> Vencido </span></td>
                 @elseif ($row->Days>0 && $row->Days<5)
                   <span class="badge badge-warning">{{ $row->Days }} días <i class="ion ion-android-warning"></i></span></td>
                 @else ($row->Days>5 && $row->Days<30)
@@ -375,11 +375,29 @@
     },
     options: {
       maintainAspectRatio: false,
-      scales: {
-        y: {
-          beginAtZero: true
+          scales: {
+      xAxes: [{
+        ticks: {
+          fontColor: '#000000'
+        },
+        gridLines: {
+          display: false,
+          color: '#000000',
+          drawBorder: false
         }
-      },
+      }],
+      yAxes: [{
+        ticks: {
+          stepSize: 1.15,
+          fontColor: '#000000'
+        },
+        gridLines: {
+          display: true,
+          color: '#000000',
+          drawBorder: false
+        }
+      }]
+    },
       legend: {
         display: false
       },
@@ -428,7 +446,7 @@
       }],
       yAxes: [{
         ticks: {
-          stepSize: 4,
+          stepSize: 10,
           fontColor: '#000000'
         },
         gridLines: {
@@ -490,7 +508,7 @@
       }],
       yAxes: [{
         ticks: {
-          stepSize: 1,
+          stepSize: 2,
           fontColor: '#000000'
         },
         gridLines: {
