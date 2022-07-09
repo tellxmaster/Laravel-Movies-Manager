@@ -227,7 +227,7 @@
             </div>
           </div>
           <div class="col-2">
-            <i class="ion ion-android-film" style="font-size: 8em;"></i>
+            <img src="{{$top_pelicula['imagen']}}" alt="pelicula_top" width="130px">
           </div>         
         </div>
       </div>
