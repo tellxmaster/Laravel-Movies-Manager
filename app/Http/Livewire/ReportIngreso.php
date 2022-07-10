@@ -9,7 +9,7 @@ use App\Models\Alquiler;
 
 class ReportIngreso extends Component
 {
-    public $filtro_mes, $filtro_gen, $list_pel;
+    public $filtro_mes, $filtro_gen, $list_pel, $resultFound, $num_busq;
     public function render()
     {
         $generos = Genero::pluck('gen_nombre','id');
@@ -41,8 +41,16 @@ class ReportIngreso extends Component
             }
         }
         
-        //dd($list);
+
         $this->list_pel = $list;
-        //dd($this->list_pel);
+        if(count($list)>0){
+            $this->resultFound = true;
+        }else{
+            $this->num_busq = 1;
+            $this->resultFound = false;
+        }
+    }
+    public function restData(){
+        $this->num_busq = 0;
     }
 }

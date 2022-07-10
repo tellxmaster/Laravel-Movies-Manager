@@ -295,7 +295,7 @@
 								<td>{{ $row->pel_nombre }}</td>
 								<td class="text-center">
                 @if ($row->Days<=0)
-                  <span class="badge badge-danger"><i class="fas fa-skull"></i> Vencido </span></td>
+                  <span class="badge badge-danger"><i class="fas fa-skull"></i> {{ $row->Days }} </span></td>
                 @elseif ($row->Days>0 && $row->Days<5)
                   <span class="badge badge-warning">{{ $row->Days }} días <i class="ion ion-android-warning"></i></span></td>
                 @else ($row->Days>5 && $row->Days<30)
@@ -305,8 +305,9 @@
 						</tbody>
 					</table>						
 				</div>
-        <div class="card-footer">
-            {{ $rest_time->links() }}
+        <div class="card-footer bg-secondary">
+            <!--$rest_time->links() -->
+            <p class="text-light text-center mt-3"><b>Alquileres Cercanos a la entrega</b></p>
         </div>
       </div>
       <!-- /.card -->

@@ -15,7 +15,7 @@
    </div>
    <div class="row">
       <div class="col">
-      <select wire:model="filtro_mes"  name="opcion" id="select" class="form-control">
+      <select wire:model="filtro_mes"  name="opcion" id="select" class="form-control" wire:click="restData()">
                <option value="1">-- Seleccione una mes </option>
                @foreach($meses as $num=>$mes)
                   <option value="{{$num}}"> {{$mes}} </option>
@@ -23,7 +23,7 @@
          </select>
       </div>
       <div class="col">
-      <select wire:model="filtro_gen"  name="opcion" id="select" class="form-control">
+      <select wire:model="filtro_gen"  name="opcion" id="select" class="form-control" wire:click="restData()">
                <option value="1">-- Seleccione un Genero</option>
                @foreach($generos as $id=>$genero)
                   <option value="{{$id}}"> {{$genero}} </option>
@@ -31,7 +31,7 @@
          </select>
       </div>
       <div class="col">
-            <button wire:click.prevent="getPelIncome({{$filtro_mes}}, {{$filtro_gen}})" class="btn btn-danger">Generar</button>
+            <button wire:click.prevent="getPelIncome({{$filtro_mes}}, {{$filtro_gen}})" class="btn btn-danger @if(!$filtro_mes || !$filtro_gen) disabled @endif">Generar</button>
       </div>
       <div class="col">
          <a href="/reporte-top/pdf" class="btn btn-success"  style="float: right;">
@@ -67,7 +67,10 @@
            @endforeach
      </tbody>
    </table>
+@elseif($resultFound==false && $num_busq>0)
+   <p class="ml-4 text-danger"><i class="ion ion-android-alert"></i> No se encontraron alquileres en esta fecha.</p>
 @endif
+
 </div>
 
 </div>

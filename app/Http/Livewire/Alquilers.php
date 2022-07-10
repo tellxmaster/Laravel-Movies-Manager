@@ -119,7 +119,7 @@ class Alquilers extends Component
         }
     }
 
-    public function getPelCost($pel_id){
-       $this->alq_valor = Pelicula::select('pel_costo')->where('id',$pel_id)->first()->pel_costo;
+    public function getPelCost(){
+       $this->alq_valor = Pelicula::select('pel_costo')->where('id',$this->pel_id)->first()->pel_costo;
     }
 }

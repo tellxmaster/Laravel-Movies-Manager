@@ -133,11 +133,16 @@ class HomeController extends Controller
     }
 
     public function getRestingTime(){
-       // $al = DB::table('alquiler')->select('id','pel_id',DB::raw("DATEDIFF(alq_fecha_hasta,alq_fecha_desde)AS Days"))->get();
-        //$al = DB::table('alquiler')->join('socio','alquiler.soc_id','=','socio.id')->join('pelicula','alquiler.pel_id','=','pelicula.id')->select('socio.soc_nombre','pelicula.pel_nombre','alquiler.created_at',DB::raw("DATEDIFF(alq_fecha_hasta,alq_fecha_desde)AS Days"))->orderBy('Days','asc')->get();
-        $resting_time = DB::table('alquiler')->join('socio','alquiler.soc_id','=','socio.id')->join('pelicula','alquiler.pel_id','=','pelicula.id')->select('socio.soc_nombre','pelicula.pel_nombre','alquiler.created_at',DB::raw("DATEDIFF(NOW(),alq_fecha_hasta)AS Days"))->orderBy('Days','asc')->paginate(6);
-        //$resting_time['data'] = json_encode($al);
-        //return $resting_time['data'];
+       
+        //$resting_time = DB::table('alquiler')->join('socio','alquiler.soc_id','=','socio.id')->join('pelicula','alquiler.pel_id','=','pelicula.id')->select('socio.soc_nombre','pelicula.pel_nombre','alquiler.created_at', DB::raw("DATEDIFF(alq_fecha_hasta,NOW()) AS Days"))->orderBy('Days','asc')->paginate(6);
+        $resting_time = DB::table('alquiler')
+                        ->join('socio','alquiler.soc_id','=','socio.id')
+                        ->join('pelicula','alquiler.pel_id','=','pelicula.id')
+                        ->select('socio.soc_nombre','pelicula.pel_nombre','alquiler.created_at', DB::raw("DATEDIFF(alq_fecha_hasta,NOW()) AS Days"))
+                        ->get()->map(function($alquiler){
+                            return ($alquiler->Days >= 0) ? $alquiler : null;
+                        });
+        $resting_time = $resting_time->filter()->sortBy('Days');                        
         return $resting_time;
     }
 }
