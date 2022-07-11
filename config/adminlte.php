@@ -247,68 +247,68 @@ return [
         [
             'text' => 'Dashboard',
             'url'  => '/dashboard',
-            'icon' => 'fas fa-chart-line',
+            'icon' => 'fas fa-tachometer-alt mr-1',
         ],
         [
             'text' => 'Perfil',
             'url'  => 'user/profile',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-fw fa-user mr-1',
         ],
         ['header' => 'Panel de Control'],
         [
             'text' => 'Socios',
             'url'  => 'socio',
-            'icon' => 'fas fa-handshake'
+            'icon' => 'ion-android-people mr-1'
         ],
         [
             'text'    => 'Peliculas',
-            'icon'    => 'fas fa-film text',
+            'icon'    => 'ion-ios-film-outline mr-1',
             'submenu' => [
                 [
                     'text' => 'Gestionar Peliculas',
                     'url'  => 'pelicula',
-                    'icon' => 'fas fa-video'
+                    'icon' => 'nav-icon fas fa-video mr-1'
                 ],
                 [
                     'text' => 'Gestionar Categorias',
                     'url'  => '/genero',
-                    'icon' => 'fas fa-box-open'
+                    'icon' => 'nav-icon fas fa-box-open mr-1'
                 ],
                 [
                     'text' => 'Gestionar Actores',
                     'url'  => '/actor',
-                    'icon' => 'fas fa-user text',
+                    'icon' => 'nav-icon fas fa-user text mr-1',
                 ],
                 [
                     'text' => 'Gestionar Directores',
                     'url'  => 'director',
-                    'icon' => 'fas fa-video text'
+                    'icon' => 'nav-icon fas fa-video text mr-1'
                 ],
                 [
                     'text' => 'Gestionar Alquileres',
                     'url'  => 'alquiler',
-                    'icon' => 'fas fa-dollar-sign'
+                    'icon' => 'nav-icon fas fa-dollar-sign mr-1'
                 ]
             ],
         ],
         [
             'text'    => 'Configuración Avanzada',
-            'icon'    => 'fas fa-wrench',
+            'icon'    => 'fas fa-wrench mr-1',
             'submenu' => [
                 [
                     'text' => 'Campos Adicionales',
                     'url'  => '#',
-                    'icon' => 'fas fa-plus',
+                    'icon' => 'fas fa-plus mr-1',
                     'submenu' => [
                         [
                             'text' => 'Sexos',
-                            'icon' => 'fas fa-mars-double',
+                            'icon' => 'fas fa-mars-double mr-1',
                             'url'  => 'sexo',
                         ],
                         [
                             'text' => 'Formatos',
                             'url'  => 'formato',
-                            'icon' => 'fas fa-file-video'
+                            'icon' => 'fas fa-file-video mr-1'
                         ]
                     ]
                 ]
@@ -317,33 +317,33 @@ return [
         ['header' => 'Reportes'],
         [
             'text'       => 'Generar Reporte',
-            'icon'       => 'fas fa-file',
+            'icon'       => 'fas fa-file mr-1',
             'url'        => '/reporte',
             'submenu' => [
                 [
                     'text' => 'Top 5 géneros por mes',
-                    'icon' => 'ion ion-android-star',
+                    'icon' => 'nav-icon ion ion-arrow-graph-up-right mr-1',
                     'url'  => '/reporte-top',
                 ],
                 [
                     'text' => 'Alquileres por día.',
                     'url'  => '/reporte-alquiler',
-                    'icon' => 'ion ion-card'
+                    'icon' => 'nav-icon fas fa-money-bill mr-1'
                 ],
                 [
                     'text' => 'Películas por género.',
-                    'icon' => 'ion ion-videocamera',
+                    'icon' => 'nav-icon fas fa-chart-pie mr-1',
                     'url'  => '/reporte-genero',
                 ],
                 [
                     'text' => 'Ingresos mensuales.',
                     'url'  => '/reporte-ingreso',
-                    'icon' => 'ion ion-social-usd'
+                    'icon' => 'nav-icon ion ion-social-usd mr-1'
                 ],
                 [
                     'text' => 'Reporte por socio.',
                     'url'  => '/reporte-socio',
-                    'icon' => 'ion ion-person-stalker'
+                    'icon' => 'nav-icon ion ion-person-stalker mr-1'
                 ]
              ]  
         ],

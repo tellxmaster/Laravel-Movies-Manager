@@ -27,7 +27,7 @@
                                         <td>{{ $row->pel_nombre }}</td>
                                         <td class="text-center">
                                             @if ($row->Days <= 0)
-                                                <span class="badge badge-danger"><i class="fas fa-skull"></i>{{ $row->Days }} </span>
+                                                <span class="badge badge-danger"><i class="fas fa-skull"></i> Vencido</span>
                                             @elseif ($row->Days > 0 && $row->Days < 5)
                                                 <span class="badge badge-warning">{{ $row->Days }} días <i class="ion ion-android-warning"></i></span>
                                             @elseif ($row->Days>5 && $row->Days<30)
