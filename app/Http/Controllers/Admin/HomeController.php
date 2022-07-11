@@ -45,17 +45,13 @@ class HomeController extends Controller
         $data = $this->getAllGender();
         $spm = $this->getSocByDate();
         $apm = $this->getAlqByDate();
-        $rest_time = $this->getRestingTime();
-        //dd($stats);
-       // dd($rest_time);
-        //dd($rest_time[1]->pel_id);
+
         return view('admin.index',[
             'stats'=>$stats,
             'lrents'=>$lrents,
             'top_pelicula'=>$top_pelicula,
             'spm'=>$spm,
-            'apm'=>$apm,
-            'rest_time'=>$rest_time
+            'apm'=>$apm
         ],$data);
     }
 
@@ -132,17 +128,4 @@ class HomeController extends Controller
         return $data;
     }
 
-    public function getRestingTime(){
-       
-        //$resting_time = DB::table('alquiler')->join('socio','alquiler.soc_id','=','socio.id')->join('pelicula','alquiler.pel_id','=','pelicula.id')->select('socio.soc_nombre','pelicula.pel_nombre','alquiler.created_at', DB::raw("DATEDIFF(alq_fecha_hasta,NOW()) AS Days"))->orderBy('Days','asc')->paginate(6);
-        $resting_time = DB::table('alquiler')
-                        ->join('socio','alquiler.soc_id','=','socio.id')
-                        ->join('pelicula','alquiler.pel_id','=','pelicula.id')
-                        ->select('socio.soc_nombre','pelicula.pel_nombre','alquiler.created_at', DB::raw("DATEDIFF(alq_fecha_hasta,NOW()) AS Days"))
-                        ->get()->map(function($alquiler){
-                            return ($alquiler->Days >= 0) ? $alquiler : null;
-                        });
-        $resting_time = $resting_time->filter()->sortBy('Days');                        
-        return $resting_time;
-    }
 }
