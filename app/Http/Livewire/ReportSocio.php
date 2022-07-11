@@ -8,7 +8,7 @@ use Livewire\Component;
 
 class ReportSocio extends Component
 {
-    public $anio,$spm,$apm,$socs;
+    public $anio,$spm,$apm,$socs,$num_busq;
 
     public function render()
     {
@@ -87,6 +87,14 @@ class ReportSocio extends Component
         }
 
        return $top_soc;
+    }
+
+    public function restData(){
+        $this->num_busq = 0;
+    }
+
+    public function renderData(){
+        $this->num_busq = 1;
     }
  
 }

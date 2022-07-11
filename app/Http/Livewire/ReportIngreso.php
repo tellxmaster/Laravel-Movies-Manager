@@ -70,4 +70,8 @@ class ReportIngreso extends Component
     public function restData(){
         $this->num_busq = 0;
     }
+
+    public function renderData(){
+        $this->num_busq = 1;
+    }
 }

@@ -32,7 +32,7 @@
             </select>
         </div>
         <div class="col">
-            <button wire:click.prevent="getPelIncome({{ $filtro_mes }}, {{ $filtro_gen }})"
+            <button wire:click.prevent="getPelIncome({{ $filtro_mes }}, {{ $filtro_gen }})" wire:click="renderData()"
                 class="btn btn-danger @if (!$filtro_mes || !$filtro_gen) disabled @endif">Generar</button>
         </div>
         <div class="col">
@@ -75,36 +75,39 @@
                 </tbody>
             </table>
          </div>
-               <div class="col-6">
+            @if($num_busq == 0)
+                <div class="col-6">
+                    <p style="min-height: 250px; height: 350px; max-height: 350px; max-width: 100%; min-width: 100%;">Procesando...</p>
+                </div>
+            @else
+               <div class="col-6" wire:ignore>
                   <canvas id="myChart" style="min-height: 250px; height: 350px; max-height: 350px; max-width: 100%; min-width: 100%;"></canvas>
                </div>
                <script>
-                  let porcentajes = {{Js::from($porcentajes)}};
-                  let porcentajes_lbl = {{Js::from($porcentajes_lbl)}};
+                  let porcentajes = [];
+                  porcentajes = {{Js::from($porcentajes)}};
+                  let porcentajes_lbl = [];
+                  porcentajes_lbl = {{Js::from($porcentajes_lbl)}};
                   console.log(porcentajes);
-                  const pieChartCanvas = document.getElementById('myChart').getContext('2d');
-                  var donutData        = {
-                     labels: porcentajes_lbl,
-                     datasets: [
-                     {
-                        data: porcentajes,
-                        backgroundColor : ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
-                     }
-                     ]
-                  }
-                  var pieData        = donutData;
-                  var pieOptions     = {
-                     maintainAspectRatio : false,
-                     responsive : true,
-                  }
-                  //Create pie or douhnut chart
-                  // You can switch between pie and douhnut using the method below.
+                  var pieChartCanvas = document.getElementById('myChart').getContext('2d');
                   new Chart(pieChartCanvas, {
-                     type: 'pie',
-                     data: pieData,
-                     options: pieOptions
+                    type: 'pie',
+                    data: {
+                       labels: porcentajes_lbl,
+                       datasets: [
+                       {
+                           data: porcentajes,
+                           backgroundColor : ['#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de', '#f56954', '#00a65a'],
+                       }
+                       ]
+                    },
+                    options: {
+                       maintainAspectRatio : false,
+                       responsive : true,
+                    }
                   })
-               </script>   
+               </script>
+               @endif   
           </div>
 
         @elseif($resultFound == false && $num_busq > 0)
