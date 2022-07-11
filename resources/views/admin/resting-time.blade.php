@@ -12,7 +12,7 @@
                         </div>
                     </div>
                     <div id="table_data" class="card-body table-responsive p-0">
-                        <table class="table table-striped table-valign-middle">
+                        <table class="table table-valign-middle">
                             <thead class="thead">
                                 <tr>
                                     <th>Socio</th>

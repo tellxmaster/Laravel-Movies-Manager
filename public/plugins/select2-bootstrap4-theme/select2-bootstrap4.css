@@ -32,8 +32,8 @@
 
 .select2-container--bootstrap4.select2-container--focus .select2-selection {
   border-color: #80bdff;
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-          box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); }
+  -webkit-box-shadow: 0 0 0 0.2rem #F24C4C;
+          box-shadow: 0 0 0 0.2rem #F24C4C; }
 
 .select2-container--bootstrap4.select2-container--focus.select2-container--open .select2-selection {
   border-bottom: none;

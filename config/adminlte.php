@@ -317,7 +317,7 @@ return [
         ['header' => 'Reportes'],
         [
             'text'       => 'Generar Reporte',
-            'icon' => 'ion ion-document',
+            'icon'       => 'fas fa-file',
             'url'        => '/reporte',
             'submenu' => [
                 [

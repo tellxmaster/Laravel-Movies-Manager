@@ -8569,7 +8569,7 @@ select.form-control-sm ~ .select2-container--default .select2-selection--multipl
 }
 
 .bootstrap-switch:focus-within {
-  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  box-shadow: 0 0 0 0.2rem #F24C4C;
 }
 
 .bootstrap-switch .bootstrap-switch-handle-on,
