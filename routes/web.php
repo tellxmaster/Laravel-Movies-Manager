@@ -58,3 +58,5 @@ Route::get('/dashboard', [App\Http\Controllers\Admin\HomeController::class, 'ind
 	Route::get('director', function(){
 		return view('livewire.directors.index');
 	})->name('Director');
+
+	Route::get('/peliculaslist', [App\Http\Controllers\Admin\HomeController::class,'getpel']);

@@ -128,4 +128,8 @@ class HomeController extends Controller
         return $data;
     }
 
+    public function getpel(){
+        $peliculas = Pelicula::all();
+        return $peliculas;
+    }
 }
