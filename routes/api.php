@@ -18,4 +18,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/peliculaslist', 'HomeController@getpel');
+Route::get('/peliculaslist', [App\Http\Controllers\Admin\HomeController::class,'getpel']);
+Route::get('/peliculasalquiler', [App\Http\Controllers\Admin\HomeController::class,'get_alquiler']);
+Route::get('/peliculasgenero', [App\Http\Controllers\Admin\HomeController::class,'get_pel_genero']);

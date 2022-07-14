@@ -8,6 +8,7 @@ use App\Models\Pelicula;
 use App\Models\Genero;
 use App\Models\User;
 use App\Models\Socio;
+use Illuminate\Http\Request;
 use DB;
 
 
@@ -128,8 +129,63 @@ class HomeController extends Controller
         return $data;
     }
 
-    public function getpel(){
+    public function getpel(Request $request){
+        //dd($request->input('mes'));
+        //$peliculas = Pelicula::all();
+        //return $peliculas;
+        $mes = $request->input('mes');
+        $generos = Genero::all();
+        $top = [];
+       
+        foreach($generos as $genero){
+            $top[$genero->gen_nombre] = (DB::table('pelicula')->select('pelicula.id','pel_nombre','gen_id','alquiler.alq_fecha_desde')->join('alquiler','alquiler.pel_id','pelicula.id')->where('gen_id',$genero->id)->whereBetween('alquiler.alq_fecha_desde', ['2022-'.$mes.'-01', '2022-'.$mes.'-31'])->count());
+        }
+        arsort($top);
+        while(count($top)>5){
+            array_pop($top);
+        }
+        return $top;
+    }
+
+    public function get_alquiler(Request $request){
+        $fecha = $request->input('fecha');
         $peliculas = Pelicula::all();
-        return $peliculas;
+        $peliculas_nombres = [];
+        $listado = [];
+        $total_ing = 0;
+        foreach($peliculas as $pelicula){
+            $ingresos_pel = Alquiler::all()->where('pel_id',$pelicula->id)->where('alq_fecha_desde',$fecha)->sum('alq_valor');
+            $total_ing = $total_ing + $ingresos_pel;
+            array_push($listado,
+            [
+                'num_alq' => Alquiler::all()->where('pel_id',$pelicula->id)->where('alq_fecha_desde',$fecha)->count(),
+                'pel_nombre' => $pelicula->pel_nombre,
+                'gen_nombre' => $pelicula->genero->gen_nombre,
+                'ingresos' => $ingresos_pel
+            ]);
+
+        }
+        return $listado;
+    }
+
+    public function get_pel_genero(Request $request){
+        $genero = $request->input('genero');
+        $peliculas = Pelicula::all();
+        $listado_pel = [];
+        $i=0;
+
+        $pel = (DB::table('pelicula')->select('id','pel_nombre','pel_fecha_estreno','gen_id')->where('gen_id',$genero)->get())->map(function($pel){
+               return ['id'=>$pel->id, 'nombre'=>$pel->pel_nombre,'fecha_est'=>$pel->pel_fecha_estreno];
+        });
+
+        $ids_pel = (Pelicula::select('id')->where('gen_id',$genero)->get()->toArray());
+        $suma_tot = 0;
+        for($i=0; $i<count($ids_pel); $i++){
+            $suma_tot = $suma_tot + (Alquiler::all()->where('pel_id',$ids_pel[$i]['id'])->sum('alq_valor'));
+        }
+
+        $this->sum_gen = $suma_tot;
+        $listado_pel = $this->list_generos = $pel->toArray();
+        return $listado_pel;
     }
 }
