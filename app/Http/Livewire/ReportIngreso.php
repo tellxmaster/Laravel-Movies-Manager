@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\Genero;
 use App\Models\Pelicula;
 use App\Models\Alquiler;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class ReportIngreso extends Component
 {
@@ -23,25 +24,43 @@ class ReportIngreso extends Component
         return view('livewire.reporte-ingreso.view',compact('generos','meses','spm'));
     }
 
+    public function pdf(){
+        $mes = $_GET['mes'];
+        $gen = $_GET['gen']; 
+        dd($this->getPelIncome($mes, $gen));
+        $list_pel = [];
+        $list_pel = $this->getPelIncome($mes, $gen);
+        //dd($lista);
+        $ing_total = $this->ing_total;
+        $pdf = PDF::loadView('livewire.reporte-ingreso.pdf',compact('list_pel','mes','gen','ing_total'));
+        return $pdf->stream('REPORTE-INGRESO-CINEFLIX'.date('Y-m-d').'.pdf');
+    }
+
     public function getPelIncome($mes, $genero){
-        //dd($mes,$genero);
         $peliculas = Pelicula::all()->where('gen_id', $genero);
+        //$mes = date('m',$mes);
         $list = [];
         foreach($peliculas as $pelicula)
         {
+            //dd('2022-'.$mes.'-01');
+            //$mes = date('m',$mes);
+            $num_alq = Alquiler::all()->where('pel_id',($pelicula->id))->whereBetween('alq_fecha_desde', ['2022-0'.$mes.'-01', '2022-0'.$mes.'-31'])->count();
+            $total = Alquiler::all()->where('pel_id',$pelicula->id)->whereBetween('alq_fecha_desde', ['2022-0'.$mes.'-01', '2022-0'.$mes.'-31'])->sum('alq_valor');
             $item = collect(
                 [
-                    'num_alq'    => Alquiler::all()->whereBetween('alq_fecha_desde', ['2022-0'.$mes.'-01', '2022-0'.$mes.'-31'])->where('pel_id',$pelicula->id)->count(),
+                    'num_alq'    => $num_alq,
                     'pel_nombre' => $pelicula->id,
                     'pel_nombre' => $pelicula->pel_nombre,
                     'pel_precio' => $pelicula->pel_costo,
-                    'total'      => Alquiler::all()->whereBetween('alq_fecha_desde', ['2022-0'.$mes.'-01', '2022-0'.$mes.'-31'])->where('pel_id',$pelicula->id)->sum('alq_valor'),
+                    'total'      => $total,
                 ]
             );
             if($item['num_alq'] > 0){
                 array_push($list, $item);
             }
+            
         }
+        //dd($list);
         
         $suma_tot = 0;
         for($i=0; $i<count($list); $i++){
@@ -60,13 +79,16 @@ class ReportIngreso extends Component
         //dd($suma_tot, $percentage);
 
         $this->list_pel = $list;
+        //dd($list);
         if(count($list)>0){
             $this->resultFound = true;
         }else{
             $this->num_busq = 1;
             $this->resultFound = false;
         }
+
     }
+    
     public function restData(){
         $this->num_busq = 0;
     }
@@ -74,4 +96,5 @@ class ReportIngreso extends Component
     public function renderData(){
         $this->num_busq = 1;
     }
+
 }

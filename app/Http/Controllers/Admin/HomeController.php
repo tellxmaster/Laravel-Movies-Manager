@@ -188,4 +188,96 @@ class HomeController extends Controller
         $listado_pel = $this->list_generos = $pel->toArray();
         return $listado_pel;
     }
+
+    public function get_pel_ingreso(Request $request){
+        $genero = $request->gen;
+        $mes = $request->mes;
+        $peliculas = Pelicula::all()->where('gen_id', $genero);
+        $list = [];
+        foreach($peliculas as $pelicula)
+        {
+            //dd('2022-'.$mes.'-01');
+            //$mes = date('m',$mes);
+            $num_alq = Alquiler::all()->where('pel_id',($pelicula->id))->whereBetween('alq_fecha_desde', ['2022-'.$mes.'-01', '2022-'.$mes.'-31'])->count();
+            $total = Alquiler::all()->where('pel_id',$pelicula->id)->whereBetween('alq_fecha_desde', ['2022-'.$mes.'-01', '2022-'.$mes.'-31'])->sum('alq_valor');
+            $item = collect(
+                [
+                    'num_alq'    => $num_alq,
+                    'pel_nombre' => $pelicula->id,
+                    'pel_nombre' => $pelicula->pel_nombre,
+                    'pel_precio' => $pelicula->pel_costo,
+                    'total'      => $total,
+                ]
+            );
+            if($item['num_alq'] > 0){
+                array_push($list, $item);
+            }
+            
+        }
+        //dd($list);
+        
+        $suma_tot = 0;
+        for($i=0; $i<count($list); $i++){
+            $suma_tot = $suma_tot + $list[$i]['total'];
+        }
+
+        return $list;
+    
+    }
+
+    public function get_soc_per_year(Request $request)
+    {   
+        $anio = $request->input('anio');
+        $meses=collect(
+            [
+                '01'=>'Enero','02'=>'Febrero','03'=>'Marzo','04'=>'Abril','05'=>'Mayo',
+                '06'=>'Junio','07'=>'Julio','08'=>'Agosto','09'=>'Septiembre','10'=>'Octubre','11'=>'Noviembre','12'=>'Diciembre',
+            ],
+        );
+        $socios_per_month = [];
+        $spm = [];
+        $sumSocios = 0;
+        $apm=[];
+        $socs = [];
+        
+        foreach($meses as $mes=>$label){
+            $sumSocios = Socio::all()->whereBetween('created_at', [$anio.'-'.$mes.'-01', $anio.'-'.$mes.'-31'])->count();
+            $topSoc = $this->getTopSocio($anio,$mes);
+            array_push($socios_per_month, [
+                'Mes' => $label,
+                'Número socios' => $sumSocios,
+                'Top Socio' => $topSoc
+            ]);
+            //$this->getTopSocio($anio,$mes);
+            //array_push($apm,$this->getTopSocio($anio,$mes));
+        }
+        
+        //$this->apm=$apm; 
+        return $socios_per_month;
+
+    }
+
+    public function getTopSocio($anio,$mes)
+    {
+        $socios=Socio::all();
+        $numSocio=[];
+
+        foreach($socios as $socio)
+        {
+            $numSocio[$socio->id]=Alquiler::select('soc_id')->whereBetween('alq_fecha_desde', [$anio.'-'.$mes.'-01', $anio.'-'.$mes.'-31'])->where('soc_id',$socio->id)->count();
+            //array_push($numSocio,$topSoc);
+        }
+        arsort($numSocio);
+        //dd($numSocio);
+        
+        if($numSocio[array_key_first($numSocio)]==0)
+        {
+          $top_soc="-";
+        }
+        else{
+            $top_soc=Socio::all()->where('id',array_key_first($numSocio))->first()->soc_nombre;
+        }
+
+       return $top_soc;
+    }
 }

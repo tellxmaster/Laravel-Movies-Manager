@@ -4,8 +4,8 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Pelicula;
-use Barryvdh\DomPDF\Facade as PDF;
 use App\Models\Alquiler;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class ReportAlquiler extends Component
 {
@@ -16,21 +16,18 @@ class ReportAlquiler extends Component
         return view('livewire.reporte-alquiler.view');
     }
 
-
     public function pdf()
     {
         $fecha = $_GET['fecha'];
         //$mes_lbl=$meses[$mes];
-        $lista=$this->getAlquilers($fecha);
+        $lista = $this->getAlquilers($fecha);
         $total_ing = $this->total_ing;
         $pdf = PDF::loadView('livewire.reporte-alquiler.pdf',compact('lista','fecha','total_ing'));
         return $pdf->stream('REPORTE-ALQUILER-CINEFLIX'.date('Y-m-d').'.pdf');
     }
 
     public function getAlquilers($fecha){
-        //Número alquileres, Nombre de la película, género, Ingresos generados.
         $peliculas = Pelicula::all();
-        $peliculas_nombres = [];
         $listado = [];
         $total_ing = 0;
         foreach($peliculas as $pelicula){
@@ -44,14 +41,11 @@ class ReportAlquiler extends Component
                 'ingresos' => $ingresos_pel
             ]);
 
-            //dd($num_alq,$pel_nombre,$gen_nombre,$ingresos);
         }
 
-        //dd($total_ing);
         $this->total_ing = $total_ing;
         $this->listado = $listado;
 
-        //dd($listado[0]['num_alq'],$listado[0]['pel_nombre'],$listado[0]['gen_nombre'],$listado[0]['ingresos']);
         return $listado;
         
     }
